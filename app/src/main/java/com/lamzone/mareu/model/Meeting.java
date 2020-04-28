@@ -16,7 +16,7 @@ public class Meeting implements Serializable {
     private String roomImgUrl;
 
     //Meeting hour
-    private int hour;
+    private String time;
 
     //Meeting Subject
     private String meetingSubject;
@@ -27,11 +27,11 @@ public class Meeting implements Serializable {
     /**
      * Constructor
      */
-    public Meeting(int id, String roomName, String roomImgUrl, int hour, String meetingSubject, String participant) {
+    public Meeting(int id, String roomName, String roomImgUrl, String time, String meetingSubject, String participant) {
         this.id = id;
         this.roomName = roomName;
         this.roomImgUrl = roomImgUrl;
-        this.hour = hour;
+        this.time = time;
         this.meetingSubject = meetingSubject;
         this.participant = participant;
     }
@@ -60,12 +60,12 @@ public class Meeting implements Serializable {
         this.roomImgUrl = roomImgUrl;
     }
 
-    public int getHour() {
-        return hour;
+    public String getTime() {
+        return time;
     }
 
-    public void setHour(int hour) {
-        this.hour = hour;
+    public void setTime(String time) {
+        this.time = time;
     }
 
     public String getMeetingSubject() {
@@ -84,5 +84,4 @@ public class Meeting implements Serializable {
         this.participant = participant;
     }
 
-    //generate equals & hashCode ?
 }
