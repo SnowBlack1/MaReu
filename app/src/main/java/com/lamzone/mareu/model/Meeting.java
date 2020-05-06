@@ -1,6 +1,8 @@
 package com.lamzone.mareu.model;
 
 import java.io.Serializable;
+import java.util.Date;
+import java.util.List;
 
 /**
  * Model object representing a Meeting
@@ -9,32 +11,30 @@ public class Meeting implements Serializable {
     //Identifier
     private int id;
 
-    //Room name
-    private String roomName;
+    //Room
+    private Room room;
 
-    //Room image
-    private String roomImgUrl;
-
-    //Meeting hour
-    private String time;
+    //Meeting date
+    private Date mMeetingDate;
 
     //Meeting Subject
     private String meetingSubject;
 
-    //Meeting participant
-    private String participant;
+    //Meeting guests
+    private List<Guest> mGuests;
+
 
     /**
      * Constructor
      */
-    public Meeting(int id, String roomName, String roomImgUrl, String time, String meetingSubject, String participant) {
+    public Meeting(int id, String meetingSubject, Date date, Room room, List<Guest> guests) {
         this.id = id;
-        this.roomName = roomName;
-        this.roomImgUrl = roomImgUrl;
-        this.time = time;
+        this.room = room;
+        this.mMeetingDate = date;
         this.meetingSubject = meetingSubject;
-        this.participant = participant;
+        this.mGuests = guests;
     }
+
 
     public int getId() {
         return id;
@@ -44,28 +44,12 @@ public class Meeting implements Serializable {
         this.id = id;
     }
 
-    public String getRoomName() {
-        return roomName;
+    public Room getRoom() {
+        return room;
     }
 
-    public void setRoomName(String roomName) {
-        this.roomName = roomName;
-    }
-
-    public String getRoomImgUrl() {
-        return roomImgUrl;
-    }
-
-    public void setRoomImgUrl(String roomImgUrl) {
-        this.roomImgUrl = roomImgUrl;
-    }
-
-    public String getTime() {
-        return time;
-    }
-
-    public void setTime(String time) {
-        this.time = time;
+    public void setRoom(Room room) {
+        this.room = room;
     }
 
     public String getMeetingSubject() {
@@ -76,12 +60,21 @@ public class Meeting implements Serializable {
         this.meetingSubject = meetingSubject;
     }
 
-    public String getParticipant() {
-        return participant;
+    public Date getMeetingDate() {
+        return mMeetingDate;
     }
 
-    public void setParticipant(String participant) {
-        this.participant = participant;
+    public void setMeetingDate(Date meetingDate) {
+        mMeetingDate = meetingDate;
     }
+
+    public List<Guest> getGuests() {
+        return mGuests;
+    }
+
+    public void setGuests(List<Guest> guests) {
+        mGuests = guests;
+    }
+
 
 }

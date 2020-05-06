@@ -1,6 +1,8 @@
 package com.lamzone.mareu.service;
 
+import com.lamzone.mareu.model.Guest;
 import com.lamzone.mareu.model.Meeting;
+import com.lamzone.mareu.model.Room;
 
 import java.util.List;
 
@@ -8,6 +10,9 @@ import java.util.List;
 public class DummyMeetingApiService implements MeetingApiService {
 
     private List<Meeting> meetings = DummyMeetingGenerator.generateMeetings();
+    private List<Guest> mGuests = DummyMeetingGenerator.generateGuests();
+    private List<Room> mRooms = DummyMeetingGenerator.generateRooms();
+
 
     @Override
     public List<Meeting> getMeetings() {
@@ -22,6 +27,16 @@ public class DummyMeetingApiService implements MeetingApiService {
     @Override
     public void createMeeting(Meeting meeting) {
         meetings.add(meeting);
+    }
+
+    @Override
+    public List<Guest> getGuests() {
+        return mGuests;
+    }
+
+    @Override
+    public List<Room> getRooms() {
+        return mRooms;
     }
 }
 

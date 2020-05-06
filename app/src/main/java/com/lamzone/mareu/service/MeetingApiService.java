@@ -1,6 +1,8 @@
 package com.lamzone.mareu.service;
 
+import com.lamzone.mareu.model.Guest;
 import com.lamzone.mareu.model.Meeting;
+import com.lamzone.mareu.model.Room;
 
 import java.util.List;
 
@@ -14,5 +16,8 @@ public interface MeetingApiService {
 
     /**Create a meeting*/
     void createMeeting (Meeting meeting);
+
+    List<Guest> getGuests();
+    List<Room> getRooms();
 
 }

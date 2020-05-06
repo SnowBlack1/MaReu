@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">MaReu</string>
+
+<!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="meeting_date">Date de la réunion</string>
 </resources>
