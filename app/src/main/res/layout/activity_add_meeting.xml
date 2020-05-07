@@ -35,7 +35,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-
             <ImageView
                 android:id="@+id/color_meeting"
                 android:layout_width="match_parent"
@@ -43,6 +42,27 @@
                 android:layout_gravity="center_horizontal"
                 android:background="@color/design_default_color_secondary"
                 tools:ignore="ContentDescription" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/sujet_meetingLyt"
+                android:layout_width="300dp"
+                android:layout_height="80dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="10dp">
+
+                <EditText
+                    android:id="@+id/meeting_subject"
+                    android:layout_width="300dp"
+                    android:layout_height="50dp"
+                    android:layout_gravity="center_horizontal"
+                    android:autofillHints=""
+                    android:ems="10"
+                    android:hint="@string/meeting_subject"
+                    android:inputType="textMultiLine"
+                    android:lines="1"
+                    android:minLines="1" />
+
+            </com.google.android.material.textfield.TextInputLayout>
 
             <TextView
                 android:id="@+id/meeting_date_txt"
@@ -123,27 +143,6 @@
             </com.google.android.material.textfield.TextInputLayout>
             <!-- android:background="@drawable/spinner_style" />-->
 
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/sujet_meetingLyt"
-                android:layout_width="300dp"
-                android:layout_height="80dp"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="10dp">
-
-                <EditText
-                    android:id="@+id/meeting_subject"
-                    android:layout_width="300dp"
-                    android:layout_height="50dp"
-                    android:layout_gravity="center_horizontal"
-                    android:autofillHints=""
-                    android:ems="10"
-                    android:hint="@string/meeting_subject"
-                    android:inputType="textMultiLine"
-                    android:lines="1"
-                    android:minLines="1" />
-
-            </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/participantLyt"
