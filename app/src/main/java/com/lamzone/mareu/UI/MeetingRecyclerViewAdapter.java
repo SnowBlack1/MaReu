@@ -46,12 +46,10 @@ public class MeetingRecyclerViewAdapter extends RecyclerView.Adapter<MeetingRecy
         mApiService = DI.getMeetingApiService();
 
         Meeting meeting = mMeetings.get(position);
-        Room room = mRooms.get(position);
-        holder.mMeetingInfos.setText(meeting.getMeetingSubject());
-        Glide.with(holder.mMeetingRoomImg.getContext())
-               .load(room.getRoomImgUrl())
-               .apply(RequestOptions.circleCropTransform())
-              .into(holder.mMeetingRoomImg);
+        holder.meetingColor.setColorFilter(meeting.getColor());
+        //holder.mMeetingInfos.setText(meeting.getInfo());
+        holder.mMeetingEmail.setText(meeting.getGuestList());
+
 
         holder.mDeleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -70,12 +68,15 @@ public class MeetingRecyclerViewAdapter extends RecyclerView.Adapter<MeetingRecy
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder { // voir pour viewBinding pour les elements de l'item
-        @BindView(R.id.item_list_room_img)
-        public ImageView mMeetingRoomImg;
+        @BindView(R.id.item_list_color)
+        public ImageView meetingColor;
+
         @BindView(R.id.item_list_meeting_infos)
         public TextView mMeetingInfos;
+
         @BindView(R.id.item_list_email)
         public TextView mMeetingEmail;
+
         @BindView(R.id.item_list_delete_button)
         public ImageButton mDeleteButton;
 

@@ -8,73 +8,65 @@ import java.util.List;
  * Model object representing a Meeting
  */
 public class Meeting implements Serializable {
-    //Identifier
-    private int id;
 
-    //Room
-    private Room room;
+    private int color;
+    private String room;
 
-    //Meeting date
-    private Date mMeetingDate;
-
-    //Meeting Subject
-    private String meetingSubject;
-
-    //Meeting guests
-    private List<Guest> mGuests;
-
-
-    /**
-     * Constructor
-     */
-    public Meeting(int id, String meetingSubject, Date date, Room room, List<Guest> guests) {
-        this.id = id;
-        this.room = room;
-        this.mMeetingDate = date;
-        this.meetingSubject = meetingSubject;
-        this.mGuests = guests;
+    public int getColor() {
+        return color;
     }
 
-
-    public int getId() {
-        return id;
+    public void setColor(int color) {
+        this.color = color;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public Room getRoom() {
+    public String getRoom() {
         return room;
     }
 
-    public void setRoom(Room room) {
+    public void setRoom(String room) {
         this.room = room;
     }
 
-    public String getMeetingSubject() {
-        return meetingSubject;
+    public String getSubject() {
+        return subject;
     }
 
-    public void setMeetingSubject(String meetingSubject) {
-        this.meetingSubject = meetingSubject;
+    public void setSubject(String subject) {
+        this.subject = subject;
     }
 
-    public Date getMeetingDate() {
-        return mMeetingDate;
+    public void setGuestList(List<String> guestList) {
+        this.guestList = guestList;
     }
 
-    public void setMeetingDate(Date meetingDate) {
-        mMeetingDate = meetingDate;
+    //private Date startDate;
+    //private Date endDate;
+    private String subject;
+    private List<String> guestList;
+
+    public Meeting(int color,String room,String subject,List<String> guestList){
+        this.color = color;
+        this.room = room;
+        this.subject = subject;
+        this.guestList = guestList;
     }
 
-    public List<Guest> getGuests() {
-        return mGuests;
-    }
+    //public String getInfo() pour date ?
 
-    public void setGuests(List<Guest> guests) {
-        mGuests = guests;
-    }
 
+
+//GETTERS AND SETTERS
+
+
+
+
+    public String getGuestList(){
+        StringBuilder guests = new StringBuilder();
+        for (String guest :  guestList){
+            guests.append(guest).append(" , ");
+        }
+        return guests.toString();
+    }
 
 }

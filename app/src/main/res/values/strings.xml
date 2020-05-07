@@ -4,4 +4,9 @@
 <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="meeting_date">Date de la réunion</string>
+    <string name="meeting_start_date">Heure de début de la réunion</string>
+    <string name="meeting_guests">Participants à la réunion</string>
+    <string name="meeting_save">Enregistrer</string>
+    <string name="meeting_end_date">Heure de fin de la réunion</string>
+    <string name="meeting_subject">Sujet de la réunion</string>
 </resources>

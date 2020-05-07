@@ -9,9 +9,7 @@ import java.util.List;
 /**Mock for the API*/
 public class DummyMeetingApiService implements MeetingApiService {
 
-    private List<Meeting> meetings = DummyMeetingGenerator.generateMeetings();
-    private List<Guest> mGuests = DummyMeetingGenerator.generateGuests();
-    private List<Room> mRooms = DummyMeetingGenerator.generateRooms();
+    private List<Meeting> meetings = DummyMeetingGenerator.generateMeeting();
 
 
     @Override
@@ -31,12 +29,13 @@ public class DummyMeetingApiService implements MeetingApiService {
 
     @Override
     public List<Guest> getGuests() {
-        return mGuests;
+        return null;
     }
 
     @Override
     public List<Room> getRooms() {
-        return mRooms;
+        return null;
     }
+
 }
 

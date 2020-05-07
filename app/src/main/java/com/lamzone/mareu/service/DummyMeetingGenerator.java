@@ -1,46 +1,54 @@
 package com.lamzone.mareu.service;
 
 
-import com.lamzone.mareu.R;
 import com.lamzone.mareu.model.Guest;
 import com.lamzone.mareu.model.Meeting;
-import com.lamzone.mareu.model.Room;
 
-import java.lang.reflect.Array;
+
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
-import java.util.Date;
 import java.util.List;
+import java.util.Random;
+
+import static android.graphics.Color.rgb;
 
 public abstract class DummyMeetingGenerator {
 
+    private static int meetingColor;
 
-    private static final List<Room> DUMMY_ROOMS = Arrays.asList(
-            new Room(1,"Salle A","https://ibb.co/qRHZN9c"),
-            new Room(2,"Salle B","https://ibb.co/qY0FJvX"),
-            new Room(3,"Salle C","https://ibb.co/pdNShPs"),
-            new Room(4,"Salle D","https://ibb.co/TvN3mzv")
-    );
-
-    private static final List<Guest> DUMMY_GUESTS = Arrays.asList(
-           new Guest(1,"michel@lamzone.com"),
-           new Guest(2,"jeanine@lamzone.com"),
-           new Guest(3,"audrey@lamzone.com"),
-           new Guest(4,"raphael@lamzone.com"),
-           new Guest(5,"julie@lamzone.com")
-
-    );
-
-    public static List<Meeting> DUMMY_MEETINGS = Arrays.asList(
-
-            new Meeting(1," Appli Entrevoisins",new Date(Long.parseLong("1588579200000")),
-                    new Room(1,"Salle A","https://ibb.co/qRHZN9c"),
-                    Collections.singletonList(new Guest(1, "michel@lamzone.com"))));
-
-    static List<Meeting> generateMeetings() {
-        return new ArrayList<>(DUMMY_MEETINGS);
+    public static int getActualColor() {
+        return meetingColor;
     }
-    static List<Guest> generateGuests(){return  new ArrayList<>(DUMMY_GUESTS);}
-    static List<Room> generateRooms(){return  new ArrayList<>(DUMMY_ROOMS);}
+
+
+    public static List<Meeting> DUMMY_MEETING = Arrays.asList( //apres room, mettre generateStartMeeting & generateEndMeeting
+            new Meeting(generateColor(), "Salle A", "Sujet A", Guest.guestList),
+            new Meeting(generateColor(), "Salle B", "Sujet B", Guest.guestList),
+            new Meeting(generateColor(), "Salle C", "Sujet C", Guest.guestList),
+            new Meeting(generateColor(), "Salle D", "Sujet D", Guest.guestList)
+    );
+
+    static List<Meeting> generateMeeting() {
+        return new ArrayList<>(DUMMY_MEETING);
+    }
+
+    public static int generateColor() {
+        meetingColor = rgb(new Random().nextInt(255), new Random().nextInt(255), new Random().nextInt(255));
+        return meetingColor;
+    }
+
+    //private static Date generateStartMeeting() {
+    //    Calendar cal = Calendar.getInstance();
+    //    cal.set(Calendar.HOUR_OF_DAY, 8);
+    //    cal.set(Calendar.MINUTE, 0);
+    //    return cal.getTime();
+    //}
+
+    //private static Date generateEndMeeting() {
+    //    Calendar cal = Calendar.getInstance();
+    //    cal.set(Calendar.HOUR_OF_DAY, 9);
+    //    cal.set(Calendar.MINUTE, 0);
+    //    return cal.getTime();
+    //}
+
 }
