@@ -52,7 +52,10 @@ public class Meeting implements Serializable {
         this.guestList = guestList;
     }
 
-    //public String getInfo() pour date ?
+    public String getInfo(){
+        //date
+        return this.getRoom() + " - " + " HEURE A VENIR" + " - " + this.getSubject();
+    }
 
 
 

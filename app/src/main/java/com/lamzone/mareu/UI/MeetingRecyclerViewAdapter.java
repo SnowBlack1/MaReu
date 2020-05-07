@@ -47,7 +47,7 @@ public class MeetingRecyclerViewAdapter extends RecyclerView.Adapter<MeetingRecy
 
         Meeting meeting = mMeetings.get(position);
         holder.meetingColor.setColorFilter(meeting.getColor());
-        //holder.mMeetingInfos.setText(meeting.getInfo());
+        holder.mMeetingInfos.setText(meeting.getInfo());
         holder.mMeetingEmail.setText(meeting.getGuestList());
 
 
