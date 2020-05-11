@@ -9,4 +9,6 @@
     <string name="meeting_save">Enregistrer</string>
     <string name="meeting_end_date">Heure de fin de la réunion</string>
     <string name="meeting_subject">Sujet de la réunion</string>
+    <string name="startTimeMeeting">Début de la réunion</string>
+    <string name="endTimeMeeting">Fin de la réunion</string>
 </resources>

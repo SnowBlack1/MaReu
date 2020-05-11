@@ -17,7 +17,10 @@ public interface MeetingApiService {
     /**Create a meeting*/
     void createMeeting (Meeting meeting);
 
-    List<Guest> getGuests();
     List<Room> getRooms();
 
+    //boolean checkingMeeting ?
+
+    //List<Meeting> getMeetingByDateFilter
+    //List<Meeting> getMeetingByRoomFilter
 }

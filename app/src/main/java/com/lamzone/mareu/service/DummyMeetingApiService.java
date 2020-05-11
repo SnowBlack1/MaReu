@@ -28,14 +28,14 @@ public class DummyMeetingApiService implements MeetingApiService {
     }
 
     @Override
-    public List<Guest> getGuests() {
-        return null;
-    }
-
-    @Override
     public List<Room> getRooms() {
         return null;
     }
+
+
+    //checkingMeeting?
+    //getMeetingByDateFilter
+    //getMeetingByRoomFilter
 
 }
 

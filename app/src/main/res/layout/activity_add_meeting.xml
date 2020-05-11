@@ -73,7 +73,6 @@
                     android:layout_marginRight="16dp"
                     android:ellipsize="start"
                     android:gravity="center_horizontal"
-
                     />
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -89,7 +88,8 @@
                 android:text="@string/meeting_date"
                 android:textSize="15sp" />
 
-            <DatePicker
+
+           <DatePicker
                 android:id="@+id/meeting_date_picker"
                 style="@style/date_picker_theme"
                 android:layout_width="wrap_content"
@@ -100,13 +100,13 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/meeting_start_date_layout"
-                android:layout_width="300dp"
-                android:layout_height="150dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="25dp">
 
                 <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/meeting_start_date_txt"
+                    android:id="@+id/meeting_start_time_txt"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
@@ -114,35 +114,52 @@
                     android:text="@string/meeting_start_date"
                     android:textSize="20sp" />
 
-                <TimePicker
-                    android:id="@+id/date_meeting_start"
+                <Button
+                    android:id="@+id/start_time_btn"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:backgroundTint="@color/greyBtn"
+                    android:hint="@string/startTimeMeeting"
+                    android:textColorHint="@color/black" />
+
+                <!--<TimePicker
+                    android:id="@+id/meeting_start_time_picker"
                     android:layout_width="match_parent"
                     android:layout_height="120dp"
-                    android:timePickerMode="spinner" />
+                    android:timePickerMode="spinner" />-->
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/meeting_end_date_layout"
-                android:layout_width="300dp"
-                android:layout_height="150dp"
+                android:layout_width="282dp"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="30dp">
 
 
                 <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/meeting_end_time_txt"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:text="@string/meeting_end_date"
                     android:textSize="20sp" />
 
+                <Button
+                    android:id="@+id/end_time_button"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:backgroundTint="@color/greyBtn"
+                    android:hint="@string/endTimeMeeting"
+                    android:textColorHint="@color/black" />
 
-                <TimePicker
-                    android:id="@+id/meeting_end_date_date_picker"
+                <!-- <TimePicker
+                    android:id="@+id/meeting_end_time_picker"
                     android:layout_width="match_parent"
                     android:layout_height="120dp"
-                    android:timePickerMode="spinner" />
+                    android:timePickerMode="spinner" />-->
             </com.google.android.material.textfield.TextInputLayout>
+
 
 
             <com.google.android.material.textfield.TextInputLayout
