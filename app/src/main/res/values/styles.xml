@@ -9,6 +9,7 @@
     </style>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
+    <style name="MaReu.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>
 
     <style name="AppTheme.NOACTIONBAR" parent="Theme.MaterialComponents.Light.NoActionBar">
         <item name="windowActionBar">false</item>

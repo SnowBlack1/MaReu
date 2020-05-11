@@ -11,6 +11,27 @@ public class Meeting implements Serializable {
 
     private int color;
     private String room;
+    private Date meetingStart;
+    private Date meetingEnd;
+    private String subject;
+
+    public Date getMeetingStart() {
+        return meetingStart;
+    }
+
+    public void setMeetingStart(Date meetingStart) {
+        this.meetingStart = meetingStart;
+    }
+
+    public Date getMeetingEnd() {
+        return meetingEnd;
+    }
+
+    public void setMeetingEnd(Date meetingEnd) {
+        this.meetingEnd = meetingEnd;
+    }
+
+    private List<String> guestList;
 
     public int getColor() {
         return color;
@@ -40,10 +61,6 @@ public class Meeting implements Serializable {
         this.guestList = guestList;
     }
 
-    //private Date startDate;
-    //private Date endDate;
-    private String subject;
-    private List<String> guestList;
 
     public Meeting(int color,String room,String subject,List<String> guestList){
         this.color = color;
@@ -56,12 +73,6 @@ public class Meeting implements Serializable {
         //date
         return this.getRoom() + " - " + " HEURE A VENIR" + " - " + this.getSubject();
     }
-
-
-
-//GETTERS AND SETTERS
-
-
 
 
     public String getGuestList(){

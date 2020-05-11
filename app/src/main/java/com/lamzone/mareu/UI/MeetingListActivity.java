@@ -1,6 +1,7 @@
 package com.lamzone.mareu.UI;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -29,9 +30,10 @@ public class MeetingListActivity extends AppCompatActivity {
 
     @BindView(R.id.recycler_view_meeting_list)
     RecyclerView mRecyclerView;
-
     @BindView(R.id.add_meeting)
     FloatingActionButton addMeeting;
+    @BindView(R.id.meeting_list_toolbar)
+    Toolbar meetingListToolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +42,7 @@ public class MeetingListActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         //int theme = R.style.AppTheme_NOACTIONBAR;
         //setTheme(theme);
+        setSupportActionBar(meetingListToolbar);
 
         mApiService = DI.getMeetingApiService();
 
@@ -51,6 +54,8 @@ public class MeetingListActivity extends AppCompatActivity {
             Intent intent = new Intent(v.getContext(),AddMeeting.class);
             startActivity(intent);
         });
+
+
 
 
         initList();

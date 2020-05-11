@@ -22,10 +22,10 @@ public class Guest {
     }
 
     private static final List<Guest> DUMMY_GUESTS = Arrays.asList(
-            new Guest(1, "Captain", "America", emailAddress),
-            new Guest(2, "Fire", "Fox", emailAddress),
-            new Guest(3, "Cat", "Woman", emailAddress),
-            new Guest(4, "Spider", "Man", emailAddress)
+            new Guest(1, "captain", "america", emailAddress),
+            new Guest(2, "fire", "fox", emailAddress),
+            new Guest(3, "cat", "woman", emailAddress),
+            new Guest(4, "spider", "man", emailAddress)
 
 
     );
@@ -36,7 +36,7 @@ public class Guest {
     private static List addressGenerator() {
         List<String> listEmail = new ArrayList<>();
         for (Guest guest : DUMMY_GUESTS) {
-            listEmail.add(guest.firstName + guest.lastName + emailAddress);
+            listEmail.add(guest.firstName+ "." + guest.lastName + emailAddress);
         }
         return listEmail;
     }
