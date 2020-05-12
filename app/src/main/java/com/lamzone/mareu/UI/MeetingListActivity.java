@@ -1,19 +1,23 @@
 package com.lamzone.mareu.UI;
 
+import android.content.Intent;
+import android.os.Bundle;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.Intent;
-import android.os.Bundle;
-
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.lamzone.mareu.DI.DI;
 import com.lamzone.mareu.R;
+import com.lamzone.mareu.events.DeleteMeetingEvent;
 import com.lamzone.mareu.model.Meeting;
 import com.lamzone.mareu.model.Room;
 import com.lamzone.mareu.service.MeetingApiService;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -69,9 +73,23 @@ public class MeetingListActivity extends AppCompatActivity {
         mRecyclerView.setAdapter(new MeetingRecyclerViewAdapter(mMeetings, mRooms));
     }
 
+    @Override
+    public void onStart(){
+        super.onStart();
+        EventBus.getDefault().register(this);
+    }
 
-   // @OnClick(R.id.add_meeting)
-    //void addNeighbour() {
-        //AddMeeting.navigate(this);
+    @Override
+    public void onStop(){
+        super.onStop();
+        EventBus.getDefault().unregister(this);
+    }
+
+    @Subscribe
+    public void onDeleteMeetingEvent(DeleteMeetingEvent deleteMeetingEvent){
+        mApiService.deleteMeeting(deleteMeetingEvent.meeting);
+        initList();
+    }
+
 
 }

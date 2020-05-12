@@ -8,13 +8,12 @@ import java.util.List;
 
 public class Guest {
 
-    private int id;
+
     private String firstName;
     private String lastName;
     private static String emailAddress = "@lamzone.com";
 
-    public Guest(int id, String firstName, String lastName, String emailAddress) {
-        this.id = id;
+    public Guest(String firstName, String lastName, String emailAddress) {
         this.firstName = firstName;
         this.lastName = lastName;
         Guest.emailAddress = emailAddress;
@@ -22,10 +21,10 @@ public class Guest {
     }
 
     private static final List<Guest> DUMMY_GUESTS = Arrays.asList(
-            new Guest(1, "captain", "america", emailAddress),
-            new Guest(2, "fire", "fox", emailAddress),
-            new Guest(3, "cat", "woman", emailAddress),
-            new Guest(4, "spider", "man", emailAddress)
+            new Guest("captain", "america", emailAddress),
+            new Guest("fire", "fox", emailAddress),
+            new Guest("cat","woman", emailAddress),
+            new Guest("spider", "man", emailAddress)
 
 
     );
@@ -42,13 +41,6 @@ public class Guest {
     }
 
 
-    public long getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
 
     public String getFirstName() {
         return firstName;

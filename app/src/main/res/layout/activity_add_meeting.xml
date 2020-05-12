@@ -49,7 +49,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="150dp"
                 android:layout_gravity="center_horizontal"
-                android:background="@color/design_default_color_secondary"
+                android:background="@color/lightPink"
                 tools:ignore="ContentDescription" />
 
             <com.google.android.material.textfield.TextInputLayout
@@ -57,26 +57,26 @@
                 android:layout_width="300dp"
                 android:layout_height="80dp"
                 android:layout_gravity="center_horizontal"
-                android:layout_margin="10dp">
+                android:layout_margin="10dp"
+                android:focusable="true"
+                android:focusableInTouchMode="true">
 
                 <EditText
                     android:id="@+id/meeting_subject_txt"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:autofillHints=""
-                    android:backgroundTint="@color/backgroundWhite"
-                    android:hint="@string/meeting_subject"
-                    android:inputType="textMultiLine"
-                    android:minLines="1"
                     android:layout_alignParentStart="true"
                     android:layout_marginLeft="16dp"
                     android:layout_marginRight="16dp"
+                    android:backgroundTint="@color/backgroundWhite"
                     android:ellipsize="start"
                     android:gravity="center_horizontal"
+                    android:hint="@string/meeting_subject"
+                    android:inputType="textMultiLine"
+                    android:minLines="1"
                     />
 
             </com.google.android.material.textfield.TextInputLayout>
-
 
 
             <TextView
@@ -89,7 +89,7 @@
                 android:textSize="15sp" />
 
 
-           <DatePicker
+            <DatePicker
                 android:id="@+id/meeting_date_picker"
                 style="@style/date_picker_theme"
                 android:layout_width="wrap_content"
@@ -118,9 +118,9 @@
                     android:id="@+id/start_time_btn"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
-                    android:backgroundTint="@color/greyBtn"
+                    android:backgroundTint="@color/colorPrimary"
                     android:hint="@string/startTimeMeeting"
-                    android:textColorHint="@color/black" />
+                    android:textColorHint="@color/backgroundWhite" />
 
                 <!--<TimePicker
                     android:id="@+id/meeting_start_time_picker"
@@ -149,9 +149,9 @@
                     android:id="@+id/end_time_button"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
-                    android:backgroundTint="@color/greyBtn"
+                    android:backgroundTint="@color/colorPrimary"
                     android:hint="@string/endTimeMeeting"
-                    android:textColorHint="@color/black" />
+                    android:textColorHint="@color/backgroundWhite" />
 
                 <!-- <TimePicker
                     android:id="@+id/meeting_end_time_picker"
@@ -161,20 +161,19 @@
             </com.google.android.material.textfield.TextInputLayout>
 
 
-
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/meeting_room_layout"
                 android:layout_width="300dp"
                 android:layout_height="80dp"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginTop="50dp">
+                android:layout_marginTop="25dp">
 
                 <Spinner
                     android:id="@+id/meeting_room_spinner"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/custom_spinner" />
             </com.google.android.material.textfield.TextInputLayout>
-
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/guest_text_input_layout"
@@ -199,7 +198,8 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="15dp"
                 android:layout_marginBottom="10dp"
-                android:text="@string/meeting_save" />
+                android:text="@string/meeting_save"
+                android:backgroundTint="@color/colorPrimary"/>
 
 
         </LinearLayout>

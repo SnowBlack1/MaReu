@@ -43,7 +43,7 @@
         android:layout_gravity="end|bottom"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
-        android:backgroundTint="@color/colorAccent"
+        android:backgroundTint="@color/colorPrimary"
         android:clickable="true"
         android:focusable="true"
         android:src="@drawable/ic_group_add_black_24dp" />

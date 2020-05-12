@@ -1,42 +1,33 @@
 package com.lamzone.mareu.UI;
 
-import android.app.TimePickerDialog;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.MultiAutoCompleteTextView;
 import android.widget.Spinner;
-import android.widget.TextView;
-import android.widget.TimePicker;;
-import androidx.appcompat.widget.AppCompatTextView;
-import androidx.appcompat.widget.Toolbar;
+
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.DialogFragment;
 
-
-import com.google.android.material.textfield.TextInputLayout;
 import com.lamzone.mareu.DI.DI;
 import com.lamzone.mareu.R;
-import com.lamzone.mareu.model.Meeting;
+import com.lamzone.mareu.model.Guest;
 import com.lamzone.mareu.model.Room;
 import com.lamzone.mareu.service.DummyMeetingGenerator;
 import com.lamzone.mareu.service.MeetingApiService;
 
-import java.sql.Time;
-import java.text.DateFormat;
 import java.util.Calendar;
 import java.util.List;
-import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
+
+;
 
 
 public class AddMeeting extends AppCompatActivity {
@@ -67,8 +58,6 @@ public class AddMeeting extends AppCompatActivity {
     MultiAutoCompleteTextView guestEmail;
 
 
-
-
     private MeetingApiService mMeetingApiService = DI.getMeetingApiService();
     Calendar startMeetingCalendar = Calendar.getInstance();
     Calendar endMeetingCalendar = Calendar.getInstance();
@@ -80,12 +69,45 @@ public class AddMeeting extends AppCompatActivity {
         setContentView(R.layout.activity_add_meeting);
         ButterKnife.bind(this);
 
+
         colorMeeting.setOnClickListener(view -> colorMeeting.setBackgroundColor(DummyMeetingGenerator.generateColor()));
 
         initToolbar();
+        startTimePicker();
+        endTimePicker();
         initRoomSpinner();
 
 
+
+
+        //auto complete view -> guests emails
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+                android.R.layout.simple_dropdown_item_1line, Guest.guestList);
+
+        guestEmail.setAdapter(adapter);
+        guestEmail.setTokenizer(new MultiAutoCompleteTextView.CommaTokenizer());
+
+
+    }
+
+    public void startTimePicker() {
+        startTimeMeetingButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DialogFragment timePicker = new TimePickerFragment();
+                timePicker.show(getSupportFragmentManager(), "time picker");
+            }
+        });
+    }
+
+    public void endTimePicker() {
+        endTimeMeetingButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DialogFragment endTimePicker = new TimePickerFragment();
+                endTimePicker.show(getSupportFragmentManager(), "endTimePicker");
+            }
+        });
     }
 
 
@@ -100,23 +122,6 @@ public class AddMeeting extends AppCompatActivity {
                 finish();
             }
         });
-
-        startTimeMeetingButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                DialogFragment timePicker = new TimePickerFragment();
-                timePicker.show(getSupportFragmentManager(), "time picker");
-            }
-        });
-
-        endTimeMeetingButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                DialogFragment endTimePicker = new TimePickerFragment();
-                endTimePicker.show(getSupportFragmentManager(),"endTimePicker");
-            }
-        });
-
     }
 
     //Spinner to choose a Room for a meeting
@@ -128,22 +133,23 @@ public class AddMeeting extends AppCompatActivity {
     }
 
 
-    //@OnClick(R.id.add_Meeting)
+    //@OnClick(R.id.meeting_save)
     //void addMeeting(){
-    //    mParticipant = new Participant("");
+    //   guest = new Guest("1","","","");
     //    List<Participant> participantMeetingList = new ArrayList<>();
     //    String participants = mParticipants.getText().toString();
     //    List<String> allParticipants = Arrays.asList(participants.split("",10));
     //    for (String string:allParticipants){
-    //        Participant participant= new Participant("String");
-    //        participantMeetingList.add(participant);
+    //        Guest guest= new Guest("0");
+    //        participantMeetingList.add(guest);
     //    }
     //    Meeting meeting = new Meeting (
-    //            mTime.getText().toString(),
-    //            mSpinner.getSelectedItem().toString(),
-    //            mSubject.getText().toString(),
+    //            startTimePicker().getText().toString(),
+    //            endTimePicker().getText().toString();
+    //            meetingRoomSpinner.getSelectedItem().toString(),
+    //            meetingSubject.getText().toString(),
     //            participantMeetingList);
-    //    mApiService.createMeeting(meeting);
+    //    mMeetingApiService.createMeeting(meeting);
     //    finish();
     //}
 
