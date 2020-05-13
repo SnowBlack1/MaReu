@@ -1,18 +1,22 @@
 package com.lamzone.mareu.UI;
 
+import android.app.TimePickerDialog;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.MultiAutoCompleteTextView;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.fragment.app.DialogFragment;
 
 import com.lamzone.mareu.DI.DI;
 import com.lamzone.mareu.R;
@@ -21,6 +25,7 @@ import com.lamzone.mareu.model.Room;
 import com.lamzone.mareu.service.DummyMeetingGenerator;
 import com.lamzone.mareu.service.MeetingApiService;
 
+import java.text.DateFormat;
 import java.util.Calendar;
 import java.util.List;
 
@@ -48,14 +53,22 @@ public class AddMeeting extends AppCompatActivity {
     @BindView(R.id.meeting_subject_txt)
     EditText meetingSubject;
 
-    @BindView(R.id.start_time_btn)
-    Button startTimeMeetingButton;
+    @BindView(R.id.meeting_date_picker)
+    DatePicker mDatePicker;
 
-    @BindView(R.id.end_time_button)
-    Button endTimeMeetingButton;
+    //@BindView(R.id.start_time_btn)
+    //Button startTimeMeetingButton;
+
+    //@BindView(R.id.end_time_button)
+    //Button endTimeMeetingButton;
 
     @BindView(R.id.guest_email)
     MultiAutoCompleteTextView guestEmail;
+
+    @BindView(R.id.start_time_picker_txt)
+    TextView startMeetingTimePicker;
+    @BindView(R.id.end_time_picker_txt)
+    TextView endMeetingTimePicker;
 
 
     private MeetingApiService mMeetingApiService = DI.getMeetingApiService();
@@ -73,42 +86,46 @@ public class AddMeeting extends AppCompatActivity {
         colorMeeting.setOnClickListener(view -> colorMeeting.setBackgroundColor(DummyMeetingGenerator.generateColor()));
 
         initToolbar();
-        startTimePicker();
-        endTimePicker();
+        //startTimePicker();
+        //endTimePicker();
         initRoomSpinner();
+        autoCompleteGuestEmail();
+        setStartTimePicker();
+        setEndTimePicker();
 
 
 
+        //region RegionDatePicker
+        int day = mDatePicker.getDayOfMonth();
+        int month = mDatePicker.getMonth();
+        int year = mDatePicker.getYear();
+        startMeetingCalendar.set(year, month, day);
+        //endregion
+//
 
-        //auto complete view -> guests emails
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
-                android.R.layout.simple_dropdown_item_1line, Guest.guestList);
-
-        guestEmail.setAdapter(adapter);
-        guestEmail.setTokenizer(new MultiAutoCompleteTextView.CommaTokenizer());
 
 
     }
 
-    public void startTimePicker() {
-        startTimeMeetingButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                DialogFragment timePicker = new TimePickerFragment();
-                timePicker.show(getSupportFragmentManager(), "time picker");
-            }
-        });
-    }
+    //ublic void startTimePicker() {
+    //   startTimeMeetingButton.setOnClickListener(new View.OnClickListener() {
+    //       @Override
+    //       public void onClick(View v) {
+    //           DialogFragment timePicker = new TimePickerFragment();
+    //           timePicker.show(getSupportFragmentManager(), "time picker");
+    //       }
+    //   });
+    //
 
-    public void endTimePicker() {
-        endTimeMeetingButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                DialogFragment endTimePicker = new TimePickerFragment();
-                endTimePicker.show(getSupportFragmentManager(), "endTimePicker");
-            }
-        });
-    }
+    //public void endTimePicker() {
+    //    endTimeMeetingButton.setOnClickListener(new View.OnClickListener() {
+    //        @Override
+    //        public void onClick(View view) {
+    //            DialogFragment endTimePicker = new TimePickerFragment();
+    //            endTimePicker.show(getSupportFragmentManager(), "endTimePicker");
+    //        }
+    //    });
+    //}
 
 
     public void initToolbar() {
@@ -132,6 +149,50 @@ public class AddMeeting extends AppCompatActivity {
         meetingRoomSpinner.setAdapter(roomArrayAdapter);
     }
 
+    //Auto complete view for meeting guest emails
+    public void autoCompleteGuestEmail(){
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+                android.R.layout.simple_dropdown_item_1line, Guest.guestList);
+
+        guestEmail.setAdapter(adapter);
+        guestEmail.setTokenizer(new MultiAutoCompleteTextView.CommaTokenizer());
+    }
+
+    private void setStartTimePicker() {
+        final TimePickerDialog.OnTimeSetListener startTime = (view, hourOfDay, minute) -> {
+            startMeetingCalendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
+            startMeetingCalendar.set(Calendar.MINUTE, minute);
+            updateStartTimeTextView();
+        };
+        startMeetingTimePicker.setOnClickListener(v -> new TimePickerDialog(AddMeeting.this,
+                startTime, startMeetingCalendar.get(Calendar.HOUR),
+                startMeetingCalendar.get(Calendar.MINUTE),
+                true).show());
+    }
+
+    private void setEndTimePicker(){
+        final  TimePickerDialog.OnTimeSetListener endTime = (view, hourOfDay, minute) -> {
+            endMeetingCalendar.set(Calendar.HOUR_OF_DAY,hourOfDay);
+            endMeetingCalendar.set(Calendar.MINUTE,minute);
+            updateEndTimeTextView();
+        };
+        endMeetingTimePicker.setOnClickListener(view -> new TimePickerDialog(AddMeeting.this,
+                endTime,endMeetingCalendar.get(Calendar.HOUR),
+                endMeetingCalendar.get(Calendar.MINUTE),
+                true).show());
+    }
+
+    private void updateStartTimeTextView() {
+        DateFormat timeFormat1 = DateFormat.getTimeInstance(DateFormat.SHORT);
+        startMeetingTimePicker.setText(timeFormat1.format(startMeetingCalendar.getTime()));
+    }
+
+    private void  updateEndTimeTextView(){
+        DateFormat timeFormat2 =DateFormat.getTimeInstance(DateFormat.SHORT) ;
+        endMeetingTimePicker.setText(timeFormat2.format(endMeetingCalendar.getTime()));
+
+    }
+
 
     //@OnClick(R.id.meeting_save)
     //void addMeeting(){
@@ -152,6 +213,34 @@ public class AddMeeting extends AppCompatActivity {
     //    mMeetingApiService.createMeeting(meeting);
     //    finish();
     //}
+    //@OnClick(R.id.meeting_save)
+    //void addMeeting(){
+    //    Meeting meeting = new Meeting(
+    //            System.currentTimeMillis(),
+    //            DummyMeetingGenerator.getActualColor(),
+    //            meetingRoomSpinner.getSelectedItem().toString(),
+    //            meetingSubject.getText(),
+//
+//
+//
+    //    )
+    //}
 
+    public void onTextChanged() {
+        meetingSubject.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+            }
+
+        });
+    }
 
 }

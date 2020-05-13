@@ -44,8 +44,6 @@ public class MeetingListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_meeting_list);
         ButterKnife.bind(this);
-        //int theme = R.style.AppTheme_NOACTIONBAR;
-        //setTheme(theme);
         setSupportActionBar(meetingListToolbar);
 
         mApiService = DI.getMeetingApiService();
@@ -58,9 +56,6 @@ public class MeetingListActivity extends AppCompatActivity {
             Intent intent = new Intent(v.getContext(),AddMeeting.class);
             startActivity(intent);
         });
-
-
-
 
         initList();
 
