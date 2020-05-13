@@ -1,8 +1,11 @@
 package com.lamzone.mareu.model;
 
 import java.io.Serializable;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * Model object representing a Meeting
@@ -14,6 +17,7 @@ public class Meeting implements Serializable {
     private Date meetingStart;
     private Date meetingEnd;
     private String subject;
+    private List<String> guestList;
 
     public Date getMeetingStart() {
         return meetingStart;
@@ -31,7 +35,7 @@ public class Meeting implements Serializable {
         this.meetingEnd = meetingEnd;
     }
 
-    private List<String> guestList;
+
 
     public int getColor() {
         return color;
@@ -62,16 +66,20 @@ public class Meeting implements Serializable {
     }
 
 
-    public Meeting(int color,String room,String subject,List<String> guestList){
+    public Meeting(int color,String room, Date meetingStart,Date meetingEnd,String subject,List<String> guestList){
         this.color = color;
         this.room = room;
+        this.meetingStart = meetingStart;
+        this.meetingEnd = meetingEnd;
         this.subject = subject;
         this.guestList = guestList;
     }
 
     public String getInfo(){
-        //date
-        return this.getRoom() + " - " + " HEURE A VENIR" + " - " + this.getSubject();
+        DateFormat dateFormat = new SimpleDateFormat("HH:mm", Locale.FRANCE);
+        return this.getRoom() + " - " + dateFormat.format(meetingStart).replace(":",
+                "h") + " / " + dateFormat.format(meetingEnd).replace(":","h")
+                + " - " + this.getSubject();
     }
 
 

@@ -21,16 +21,20 @@ import androidx.appcompat.widget.Toolbar;
 import com.lamzone.mareu.DI.DI;
 import com.lamzone.mareu.R;
 import com.lamzone.mareu.model.Guest;
+import com.lamzone.mareu.model.Meeting;
 import com.lamzone.mareu.model.Room;
 import com.lamzone.mareu.service.DummyMeetingGenerator;
 import com.lamzone.mareu.service.MeetingApiService;
 
 import java.text.DateFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 ;
 
@@ -67,11 +71,13 @@ public class AddMeeting extends AppCompatActivity {
 
     @BindView(R.id.start_time_picker_txt)
     TextView startMeetingTimePicker;
+
     @BindView(R.id.end_time_picker_txt)
     TextView endMeetingTimePicker;
 
 
     private MeetingApiService mMeetingApiService = DI.getMeetingApiService();
+
     Calendar startMeetingCalendar = Calendar.getInstance();
     Calendar endMeetingCalendar = Calendar.getInstance();
 
@@ -82,7 +88,6 @@ public class AddMeeting extends AppCompatActivity {
         setContentView(R.layout.activity_add_meeting);
         ButterKnife.bind(this);
 
-
         colorMeeting.setOnClickListener(view -> colorMeeting.setBackgroundColor(DummyMeetingGenerator.generateColor()));
 
         initToolbar();
@@ -92,7 +97,7 @@ public class AddMeeting extends AppCompatActivity {
         autoCompleteGuestEmail();
         setStartTimePicker();
         setEndTimePicker();
-
+        onTextChanged();
 
 
         //region RegionDatePicker
@@ -102,7 +107,6 @@ public class AddMeeting extends AppCompatActivity {
         startMeetingCalendar.set(year, month, day);
         //endregion
 //
-
 
 
     }
@@ -150,7 +154,7 @@ public class AddMeeting extends AppCompatActivity {
     }
 
     //Auto complete view for meeting guest emails
-    public void autoCompleteGuestEmail(){
+    public void autoCompleteGuestEmail() {
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_dropdown_item_1line, Guest.guestList);
 
@@ -170,14 +174,14 @@ public class AddMeeting extends AppCompatActivity {
                 true).show());
     }
 
-    private void setEndTimePicker(){
-        final  TimePickerDialog.OnTimeSetListener endTime = (view, hourOfDay, minute) -> {
-            endMeetingCalendar.set(Calendar.HOUR_OF_DAY,hourOfDay);
-            endMeetingCalendar.set(Calendar.MINUTE,minute);
+    private void setEndTimePicker() {
+        final TimePickerDialog.OnTimeSetListener endTime = (view, hourOfDay, minute) -> {
+            endMeetingCalendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
+            endMeetingCalendar.set(Calendar.MINUTE, minute);
             updateEndTimeTextView();
         };
         endMeetingTimePicker.setOnClickListener(view -> new TimePickerDialog(AddMeeting.this,
-                endTime,endMeetingCalendar.get(Calendar.HOUR),
+                endTime, endMeetingCalendar.get(Calendar.HOUR),
                 endMeetingCalendar.get(Calendar.MINUTE),
                 true).show());
     }
@@ -187,44 +191,29 @@ public class AddMeeting extends AppCompatActivity {
         startMeetingTimePicker.setText(timeFormat1.format(startMeetingCalendar.getTime()));
     }
 
-    private void  updateEndTimeTextView(){
-        DateFormat timeFormat2 =DateFormat.getTimeInstance(DateFormat.SHORT) ;
+    private void updateEndTimeTextView() {
+        DateFormat timeFormat2 = DateFormat.getTimeInstance(DateFormat.SHORT);
         endMeetingTimePicker.setText(timeFormat2.format(endMeetingCalendar.getTime()));
 
     }
 
+    //Save the created meeting
+    @OnClick(R.id.meeting_save)
+     void addMeeting() {
+        String[] guestsEmailList = guestEmail.getText().toString().split("\n");
+        List<String> mGuestsList = new ArrayList<>(Arrays.asList(guestsEmailList));
 
-    //@OnClick(R.id.meeting_save)
-    //void addMeeting(){
-    //   guest = new Guest("1","","","");
-    //    List<Participant> participantMeetingList = new ArrayList<>();
-    //    String participants = mParticipants.getText().toString();
-    //    List<String> allParticipants = Arrays.asList(participants.split("",10));
-    //    for (String string:allParticipants){
-    //        Guest guest= new Guest("0");
-    //        participantMeetingList.add(guest);
-    //    }
-    //    Meeting meeting = new Meeting (
-    //            startTimePicker().getText().toString(),
-    //            endTimePicker().getText().toString();
-    //            meetingRoomSpinner.getSelectedItem().toString(),
-    //            meetingSubject.getText().toString(),
-    //            participantMeetingList);
-    //    mMeetingApiService.createMeeting(meeting);
-    //    finish();
-    //}
-    //@OnClick(R.id.meeting_save)
-    //void addMeeting(){
-    //    Meeting meeting = new Meeting(
-    //            System.currentTimeMillis(),
-    //            DummyMeetingGenerator.getActualColor(),
-    //            meetingRoomSpinner.getSelectedItem().toString(),
-    //            meetingSubject.getText(),
-//
-//
-//
-    //    )
-    //}
+        Meeting mMeeting = new Meeting(
+                    DummyMeetingGenerator.generateColor(),
+                    meetingRoomSpinner.getSelectedItem().toString(),
+                    startMeetingCalendar.getTime(),
+                    endMeetingCalendar.getTime(),
+                    meetingSubject.getText().toString(),
+                    mGuestsList);
+            mMeetingApiService.createMeeting(mMeeting);
+            finish();
+
+    }
 
     public void onTextChanged() {
         meetingSubject.addTextChangedListener(new TextWatcher() {

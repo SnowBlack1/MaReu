@@ -9,14 +9,14 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.RequestOptions;
 import com.lamzone.mareu.DI.DI;
 import com.lamzone.mareu.R;
+import com.lamzone.mareu.events.DeleteMeetingEvent;
 import com.lamzone.mareu.model.Meeting;
 import com.lamzone.mareu.model.Room;
 import com.lamzone.mareu.service.MeetingApiService;
 
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.List;
 
@@ -54,7 +54,7 @@ public class MeetingRecyclerViewAdapter extends RecyclerView.Adapter<MeetingRecy
         holder.mDeleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //EVENTBUS DELETEMEETINGEVENT
+                EventBus.getDefault().post(new DeleteMeetingEvent(meeting));
             }
         });
 
