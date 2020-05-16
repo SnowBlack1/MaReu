@@ -20,44 +20,63 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/item_list_meeting_infos"
-        android:layout_width="wrap_content"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/text_view_constraint_lyt"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
-        android:text="Salle - Heure - Sujet"
-        android:textColor="@color/black"
-        android:textSize="14sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toEndOf="@+id/item_list_color"
-        app:layout_constraintTop_toTopOf="@+id/item_list_color" />
-
-
-    <HorizontalScrollView
-        android:id="@+id/horizontal_scroll_view"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginStart="60dp"
-        android:layout_marginTop="25dp"
-        android:scrollbars="none"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/item_list_delete_button"
+        app:layout_constraintStart_toEndOf="@id/item_list_color"
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
-            android:id="@+id/item_list_email"
-            android:layout_width="wrap_content"
+            android:id="@+id/item_list_meeting_infos"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="5dp"
-            android:layout_marginTop="16dp"
-            android:text="test@lamzone.com, test@lamzone.com"
+            android:text="@string/room_time_subject"
             android:textColor="@color/black"
-            android:textSize="16sp"
-            app:layout_constraintBottom_toBottomOf="@+id/item_list_color"
-            app:layout_constraintStart_toEndOf="@+id/item_list_color"
-            app:layout_constraintTop_toTopOf="@+id/item_list_meeting_infos"
-            app:layout_constraintVertical_bias="0.806" />
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    </HorizontalScrollView>
+        <TextView
+            android:id="@+id/item_meeting_day"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/meeting_day"
+            android:textColor="@color/black"
+            app:layout_constraintTop_toBottomOf="@id/item_list_meeting_infos" />
+
+        <!-- GUEST LIST - SCROLLABLE with HorizontalScrollView -->
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/item_meeting_day"
+            tools:layout_editor_absoluteX="60dp"
+            tools:layout_editor_absoluteY="30dp">
+
+            <TextView
+                android:id="@+id/item_list_email"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:scrollHorizontally="true"
+                android:text="test@lamzone.com, test@lamzone.com"
+                android:textColor="@color/black"
+                android:textStyle="italic"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/item_meeting_day" />
+        </HorizontalScrollView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <ImageButton
         android:id="@+id/item_list_delete_button"
@@ -65,9 +84,9 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="2dp"
         android:background="@null"
-        app:layout_constraintBottom_toBottomOf="@+id/item_list_meeting_infos"
+        app:layout_constraintBottom_toBottomOf="@id/text_view_constraint_lyt"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/item_list_meeting_infos"
+        app:layout_constraintTop_toTopOf="@+id/text_view_constraint_lyt"
         app:srcCompat="@drawable/ic_delete_black_24dp"
         tools:ignore="ContentDescription" />
 

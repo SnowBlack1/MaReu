@@ -12,4 +12,6 @@
     <string name="startTimeMeeting">Début de la réunion</string>
     <string name="endTimeMeeting">Fin de la réunion</string>
     <string name="meeting_end_time">Entrez l\'heure de fin de la réunion</string>
+    <string name="room_time_subject">Salle - Heure - Sujet</string>
+    <string name="meeting_day">14 mai 2020</string>
 </resources>

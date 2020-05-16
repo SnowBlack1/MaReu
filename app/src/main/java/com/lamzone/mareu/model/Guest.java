@@ -1,12 +1,13 @@
 package com.lamzone.mareu.model;
 
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 
-public class Guest {
+public class Guest implements Serializable {
 
 
     private String firstName;
@@ -24,7 +25,8 @@ public class Guest {
             new Guest("captain", "america", emailAddress),
             new Guest("fire", "fox", emailAddress),
             new Guest("cat","woman", emailAddress),
-            new Guest("spider", "man", emailAddress)
+            new Guest("spider", "man", emailAddress),
+            new Guest("red","panda",emailAddress)
 
 
     );

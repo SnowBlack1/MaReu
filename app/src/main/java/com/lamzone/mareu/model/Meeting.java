@@ -16,8 +16,10 @@ public class Meeting implements Serializable {
     private String room;
     private Date meetingStart;
     private Date meetingEnd;
+    private Date dayMeeting;
     private String subject;
-    private List<String> guestList;
+    private List<String> emailList;
+    private List<String> meetings;
 
     public Date getMeetingStart() {
         return meetingStart;
@@ -36,9 +38,17 @@ public class Meeting implements Serializable {
     }
 
 
-
     public int getColor() {
         return color;
+    }
+
+
+    public List<String> getMeetings() {
+        return meetings;
+    }
+
+    public void setMeetings(List<String> meetings) {
+        this.meetings = meetings;
     }
 
     public void setColor(int color) {
@@ -61,34 +71,34 @@ public class Meeting implements Serializable {
         this.subject = subject;
     }
 
-    public void setGuestList(List<String> guestList) {
-        this.guestList = guestList;
+    public List<String> getEmailList() {
+        return emailList;
     }
 
+    public void setEmailList(List<String> emailList) {
+        this.emailList = emailList;
+    }
 
-    public Meeting(int color,String room, Date meetingStart,Date meetingEnd,String subject,List<String> guestList){
+    public Meeting(int color, String room, Date meetingStart, Date meetingEnd, String subject, List<String> emailList) {
         this.color = color;
         this.room = room;
         this.meetingStart = meetingStart;
         this.meetingEnd = meetingEnd;
         this.subject = subject;
-        this.guestList = guestList;
+        this.emailList = emailList;
     }
 
-    public String getInfo(){
+    public String getInfo() {
         DateFormat dateFormat = new SimpleDateFormat("HH:mm", Locale.FRANCE);
         return this.getRoom() + " - " + dateFormat.format(meetingStart).replace(":",
-                "h") + " / " + dateFormat.format(meetingEnd).replace(":","h")
+                "h") + " / " + dateFormat.format(meetingEnd).replace(":", "h")
                 + " - " + this.getSubject();
     }
 
+    //public String getDay(){
+        //SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
+        //return this + format.format(dayMeeting);
+    //}
 
-    public String getGuestList(){
-        StringBuilder guests = new StringBuilder();
-        for (String guest :  guestList){
-            guests.append(guest).append(" , ");
-        }
-        return guests.toString();
-    }
 
 }

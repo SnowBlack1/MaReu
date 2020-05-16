@@ -20,6 +20,7 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import butterknife.BindView;
@@ -28,6 +29,7 @@ import butterknife.ButterKnife;
 public class MeetingListActivity extends AppCompatActivity {
 
     private MeetingApiService mApiService;
+    public static final Calendar today = Calendar.getInstance();
     private List<Meeting> mMeetings = new ArrayList<>();
     private List<Room> mRooms = new ArrayList<>();
     private MeetingRecyclerViewAdapter mAdapter;
@@ -85,6 +87,5 @@ public class MeetingListActivity extends AppCompatActivity {
         mApiService.deleteMeeting(deleteMeetingEvent.meeting);
         initList();
     }
-
 
 }

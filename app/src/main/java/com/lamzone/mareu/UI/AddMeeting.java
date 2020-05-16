@@ -1,5 +1,6 @@
 package com.lamzone.mareu.UI;
 
+import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.os.Bundle;
 import android.text.Editable;
@@ -7,7 +8,6 @@ import android.text.TextWatcher;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.MultiAutoCompleteTextView;
@@ -57,8 +57,11 @@ public class AddMeeting extends AppCompatActivity {
     @BindView(R.id.meeting_subject_txt)
     EditText meetingSubject;
 
-    @BindView(R.id.meeting_date_picker)
-    DatePicker mDatePicker;
+    //@BindView(R.id.meeting_date_picker)
+    //DatePicker mDatePicker;
+    @BindView(R.id.date_picker_txt)
+    TextView meetingDayText;
+
 
     //@BindView(R.id.start_time_btn)
     //Button startTimeMeetingButton;
@@ -77,9 +80,9 @@ public class AddMeeting extends AppCompatActivity {
 
 
     private MeetingApiService mMeetingApiService = DI.getMeetingApiService();
-
     Calendar startMeetingCalendar = Calendar.getInstance();
     Calendar endMeetingCalendar = Calendar.getInstance();
+    Calendar datePickerCalendar = Calendar.getInstance();
 
 
     @Override
@@ -87,6 +90,7 @@ public class AddMeeting extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_meeting);
         ButterKnife.bind(this);
+
 
         colorMeeting.setOnClickListener(view -> colorMeeting.setBackgroundColor(DummyMeetingGenerator.generateColor()));
 
@@ -97,19 +101,16 @@ public class AddMeeting extends AppCompatActivity {
         autoCompleteGuestEmail();
         setStartTimePicker();
         setEndTimePicker();
+        setDatePickerDialog();
         onTextChanged();
 
 
-        //region RegionDatePicker
-        int day = mDatePicker.getDayOfMonth();
-        int month = mDatePicker.getMonth();
-        int year = mDatePicker.getYear();
-        startMeetingCalendar.set(year, month, day);
-        //endregion
-//
-
-
     }
+
+
+
+
+
 
     //ublic void startTimePicker() {
     //   startTimeMeetingButton.setOnClickListener(new View.OnClickListener() {
@@ -174,6 +175,7 @@ public class AddMeeting extends AppCompatActivity {
                 true).show());
     }
 
+
     private void setEndTimePicker() {
         final TimePickerDialog.OnTimeSetListener endTime = (view, hourOfDay, minute) -> {
             endMeetingCalendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
@@ -197,21 +199,39 @@ public class AddMeeting extends AppCompatActivity {
 
     }
 
+    // DATEPICKER
+    private void setDatePickerDialog() {
+        final DatePickerDialog.OnDateSetListener startDate = (view, year, monthOfYear, dayOfMonth) -> {
+            datePickerCalendar.set(Calendar.YEAR, year);
+            datePickerCalendar.set(Calendar.MONTH, monthOfYear);
+            datePickerCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+            updateDateLabel();
+        };
+        meetingDayText.setOnClickListener(v -> new DatePickerDialog(AddMeeting.this, startDate, datePickerCalendar
+                .get(Calendar.YEAR), datePickerCalendar.get(Calendar.MONTH),
+                datePickerCalendar.get(Calendar.DAY_OF_MONTH)).show());
+    }
+
+    private void updateDateLabel() {
+        DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.LONG);
+        meetingDayText.setText(dateFormat.format(datePickerCalendar.getTime()));
+    }
+
     //Save the created meeting
     @OnClick(R.id.meeting_save)
-     void addMeeting() {
+    void addMeeting() {
         String[] guestsEmailList = guestEmail.getText().toString().split("\n");
         List<String> mGuestsList = new ArrayList<>(Arrays.asList(guestsEmailList));
 
         Meeting mMeeting = new Meeting(
-                    DummyMeetingGenerator.generateColor(),
-                    meetingRoomSpinner.getSelectedItem().toString(),
-                    startMeetingCalendar.getTime(),
-                    endMeetingCalendar.getTime(),
-                    meetingSubject.getText().toString(),
-                    mGuestsList);
-            mMeetingApiService.createMeeting(mMeeting);
-            finish();
+                DummyMeetingGenerator.generateColor(),
+                meetingRoomSpinner.getSelectedItem().toString(),
+                startMeetingCalendar.getTime(),
+                endMeetingCalendar.getTime(),
+                meetingSubject.getText().toString(),
+                mGuestsList);
+        mMeetingApiService.createMeeting(mMeeting);
+        finish();
 
     }
 

@@ -23,7 +23,7 @@ public abstract class DummyMeetingGenerator {
 
 
     public static List<Meeting> DUMMY_MEETING = Arrays.asList(
-            new Meeting(generateColor(), "Salle A",generateStartMeeting(),generateEndMeeting(), "Brainstorming", Guest.guestList),
+            new Meeting(generateColor(), "Salle A",generateStartMeeting(),generateEndMeeting(), "Brainstorming",Guest.guestList),
             new Meeting(generateColor(), "Salle B",generateStartMeeting(),generateEndMeeting(), "Grands Comptes", Guest.guestList),
             new Meeting(generateColor(), "Salle C",generateStartMeeting(),generateEndMeeting(), "Télétravail", Guest.guestList),
             new Meeting(generateColor(), "Salle D",generateStartMeeting(),generateEndMeeting(), "Evaluation annuelle", Guest.guestList)
