@@ -21,7 +21,8 @@ public class Room {
             new Room(1,"Salle A"),
             new Room(2,"Salle B"),
             new Room(3,"Salle C"),
-            new Room(4,"Salle D")
+            new Room(4,"Salle D"),
+            new Room(5,"Salle E")
     );
 
     static public List<String> getRoom(){
