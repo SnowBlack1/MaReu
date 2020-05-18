@@ -23,10 +23,10 @@ public abstract class DummyMeetingGenerator {
 
 
     public static List<Meeting> DUMMY_MEETING = Arrays.asList(
-            new Meeting(generateColor(), "Salle A",generateStartMeeting(),generateEndMeeting(), "Brainstorming",Guest.guestList),
-            new Meeting(generateColor(), "Salle B",generateStartMeeting(),generateEndMeeting(), "Grands Comptes", Guest.guestList),
-            new Meeting(generateColor(), "Salle C",generateStartMeeting(),generateEndMeeting(), "Télétravail", Guest.guestList),
-            new Meeting(generateColor(), "Salle D",generateStartMeeting(),generateEndMeeting(), "Evaluation annuelle", Guest.guestList)
+            new Meeting(generateColor(), "Salle A",generateDayOfMeeting(),generateStartMeeting(),generateEndMeeting(), "Brainstorming",Guest.guestList),
+            new Meeting(generateColor(), "Salle B",generateDayOfMeeting(),generateStartMeeting(),generateEndMeeting(), "Grands Comptes", Guest.guestList),
+            new Meeting(generateColor(), "Salle C",generateDayOfMeeting(),generateStartMeeting(),generateEndMeeting(), "Télétravail", Guest.guestList),
+            new Meeting(generateColor(), "Salle D",generateDayOfMeeting(),generateStartMeeting(),generateEndMeeting(), "Evaluation annuelle", Guest.guestList)
     );
 
     static List<Meeting> generateMeeting() {
@@ -50,6 +50,14 @@ public abstract class DummyMeetingGenerator {
         cal.set(Calendar.HOUR_OF_DAY, 9);
        cal.set(Calendar.MINUTE, 0);
         return cal.getTime();
+    }
+
+    private static Date generateDayOfMeeting(){
+        Calendar calendarDay = Calendar.getInstance();
+        calendarDay.set(Calendar.YEAR,2020);
+        calendarDay.set(Calendar.MONTH,9);
+        calendarDay.set(Calendar.DAY_OF_MONTH,13);
+        return calendarDay.getTime();
     }
 
 }

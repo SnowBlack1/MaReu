@@ -33,6 +33,11 @@ public class MeetingRecyclerViewAdapter extends RecyclerView.Adapter<MeetingRecy
     private MeetingApiService mApiService;
     private Context mContext;
 
+    @BindView(R.id.item_meeting_day)
+    TextView meetingDayItem;
+    @BindView(R.id.date_picker_txt)
+    TextView datePickerTxt;
+    Calendar datePickerCalendar= Calendar.getInstance();
 
 
     public MeetingRecyclerViewAdapter(List<Meeting> items, List<Room> rooms) {
@@ -51,43 +56,46 @@ public class MeetingRecyclerViewAdapter extends RecyclerView.Adapter<MeetingRecy
     @Override
     public void onBindViewHolder(MeetingRecyclerViewAdapter.ViewHolder holder, int position) {
         mApiService = DI.getMeetingApiService();
-        Calendar dayDate = Calendar.getInstance();
+
 
         Meeting meeting = mMeetings.get(position);
         holder.meetingColor.setColorFilter(meeting.getColor());
 
-        //holder.meetingDay.setText(meeting.getDay());
+       //datePickerTxt.setOnClickListener(new View.OnClickListener() {
+       //    @Override
+       //    public void onClick(View v) {
+       //        FragmentManager fragmentManager = ((AppCompatActivity) mContext).getSupportFragmentManager();
+       //        DialogFragment datePicker = new DatePickerFragment();
+       //        datePicker.show(fragmentManager, "date picker");
+       //    }
+       //});
 
-        //SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
-        //String strDate = format.format(dayDate.getTime());
-        //holder.meetingDay.setText(strDate);
+        //DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.FULL);
+        //String dayMeeting = dateFormat.format(datePickerCalendar.getTime());
+        //holder.meetingDay.setText(dayMeeting);
 
 
         holder.mMeetingInfos.setText(meeting.getInfo());
+        holder.meetingDay.setText(meeting.getDay());
         holder.mMeetingEmail.setText(meeting.getEmailList().toString().replace("[",
-                " ").replace("]"," "));
+                " ").replace("]", " "));
 
         holder.mDeleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 EventBus.getDefault().post(new DeleteMeetingEvent(meeting));
-                Toast.makeText(mContext,"La réunion a bien été supprimée", Toast.LENGTH_LONG).show();
+                Toast.makeText(mContext, "La réunion a bien été supprimée", Toast.LENGTH_LONG).show();
             }
         });
-
-
-       // DateFormat dateFormatDay = DateFormat.getDateTimeInstance(DateFormat.LONG,DateFormat.SHORT);
-       // String dayString = dateFormatDay.format(dayDate.getTime());
-        //holder.meetingDay.setText((CharSequence) dateFormatDay);
-
-
-
     }
 
     @Override
     public int getItemCount() {
         return mMeetings.size();
     }
+
+
+
 
     public class ViewHolder extends RecyclerView.ViewHolder { // voir pour viewBinding pour les elements de l'item
         @BindView(R.id.item_list_color)
@@ -113,7 +121,7 @@ public class MeetingRecyclerViewAdapter extends RecyclerView.Adapter<MeetingRecy
     }
 
 
-
-
-
 }
+
+
+

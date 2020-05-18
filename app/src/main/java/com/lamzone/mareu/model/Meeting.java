@@ -16,10 +16,11 @@ public class Meeting implements Serializable {
     private String room;
     private Date meetingStart;
     private Date meetingEnd;
-    private Date dayMeeting;
+    private Date dayOfMeeting;
     private String subject;
     private List<String> emailList;
     private List<String> meetings;
+
 
     public Date getMeetingStart() {
         return meetingStart;
@@ -55,6 +56,14 @@ public class Meeting implements Serializable {
         this.color = color;
     }
 
+    public Date getDayOfMeeting() {
+        return dayOfMeeting;
+    }
+
+    public void setDayOfMeeting(Date dayOfMeeting) {
+        this.dayOfMeeting = dayOfMeeting;
+    }
+
     public String getRoom() {
         return room;
     }
@@ -79,9 +88,10 @@ public class Meeting implements Serializable {
         this.emailList = emailList;
     }
 
-    public Meeting(int color, String room, Date meetingStart, Date meetingEnd, String subject, List<String> emailList) {
+    public Meeting(int color, String room, Date dayOfMeeting, Date meetingStart, Date meetingEnd, String subject, List<String> emailList) {
         this.color = color;
         this.room = room;
+        this.dayOfMeeting = dayOfMeeting;
         this.meetingStart = meetingStart;
         this.meetingEnd = meetingEnd;
         this.subject = subject;
@@ -95,10 +105,10 @@ public class Meeting implements Serializable {
                 + " - " + this.getSubject();
     }
 
-    //public String getDay(){
-        //SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
-        //return this + format.format(dayMeeting);
-    //}
+   public String getDay(){
+     SimpleDateFormat spf = new SimpleDateFormat("dd/MM/yyyy");
+       return spf.format(dayOfMeeting);
+   }
 
 
 }

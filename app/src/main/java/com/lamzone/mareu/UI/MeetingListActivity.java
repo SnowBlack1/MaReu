@@ -41,6 +41,7 @@ public class MeetingListActivity extends AppCompatActivity {
     @BindView(R.id.meeting_list_toolbar)
     Toolbar meetingListToolbar;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -88,4 +89,14 @@ public class MeetingListActivity extends AppCompatActivity {
         initList();
     }
 
+    //@Override
+    //public void onDateSet(DatePicker datePicker, int year, int month, int day) {
+    //    Calendar c = Calendar.getInstance();
+    //    c.set(Calendar.YEAR, year);
+    //    c.set(Calendar.MONTH, month);
+    //    c.set(Calendar.DAY_OF_MONTH, day);
+    //    String currentDateString = DateFormat.getDateInstance(DateFormat.FULL).format(c.getTime());
+//
+    //    meetingDayItem.setText(currentDateString);
+    //}
 }

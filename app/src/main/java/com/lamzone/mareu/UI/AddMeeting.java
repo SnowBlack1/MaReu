@@ -36,7 +36,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-;
+
 
 
 public class AddMeeting extends AppCompatActivity {
@@ -83,6 +83,7 @@ public class AddMeeting extends AppCompatActivity {
     Calendar startMeetingCalendar = Calendar.getInstance();
     Calendar endMeetingCalendar = Calendar.getInstance();
     Calendar datePickerCalendar = Calendar.getInstance();
+    DatePickerDialog.OnDateSetListener mDateSetListener;
 
 
     @Override
@@ -106,32 +107,6 @@ public class AddMeeting extends AppCompatActivity {
 
 
     }
-
-
-
-
-
-
-    //ublic void startTimePicker() {
-    //   startTimeMeetingButton.setOnClickListener(new View.OnClickListener() {
-    //       @Override
-    //       public void onClick(View v) {
-    //           DialogFragment timePicker = new TimePickerFragment();
-    //           timePicker.show(getSupportFragmentManager(), "time picker");
-    //       }
-    //   });
-    //
-
-    //public void endTimePicker() {
-    //    endTimeMeetingButton.setOnClickListener(new View.OnClickListener() {
-    //        @Override
-    //        public void onClick(View view) {
-    //            DialogFragment endTimePicker = new TimePickerFragment();
-    //            endTimePicker.show(getSupportFragmentManager(), "endTimePicker");
-    //        }
-    //    });
-    //}
-
 
     public void initToolbar() {
         setSupportActionBar(addMeetingToolbar);
@@ -175,7 +150,6 @@ public class AddMeeting extends AppCompatActivity {
                 true).show());
     }
 
-
     private void setEndTimePicker() {
         final TimePickerDialog.OnTimeSetListener endTime = (view, hourOfDay, minute) -> {
             endMeetingCalendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
@@ -201,19 +175,19 @@ public class AddMeeting extends AppCompatActivity {
 
     // DATEPICKER
     private void setDatePickerDialog() {
-        final DatePickerDialog.OnDateSetListener startDate = (view, year, monthOfYear, dayOfMonth) -> {
+        final DatePickerDialog.OnDateSetListener dayOfMeeting = (view, year, monthOfYear, dayOfMonth) -> {
             datePickerCalendar.set(Calendar.YEAR, year);
             datePickerCalendar.set(Calendar.MONTH, monthOfYear);
             datePickerCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
             updateDateLabel();
         };
-        meetingDayText.setOnClickListener(v -> new DatePickerDialog(AddMeeting.this, startDate, datePickerCalendar
+        meetingDayText.setOnClickListener(v -> new DatePickerDialog(AddMeeting.this, dayOfMeeting, datePickerCalendar
                 .get(Calendar.YEAR), datePickerCalendar.get(Calendar.MONTH),
                 datePickerCalendar.get(Calendar.DAY_OF_MONTH)).show());
     }
 
     private void updateDateLabel() {
-        DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.LONG);
+        DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.FULL);
         meetingDayText.setText(dateFormat.format(datePickerCalendar.getTime()));
     }
 
@@ -226,6 +200,7 @@ public class AddMeeting extends AppCompatActivity {
         Meeting mMeeting = new Meeting(
                 DummyMeetingGenerator.generateColor(),
                 meetingRoomSpinner.getSelectedItem().toString(),
+                datePickerCalendar.getTime(),
                 startMeetingCalendar.getTime(),
                 endMeetingCalendar.getTime(),
                 meetingSubject.getText().toString(),
