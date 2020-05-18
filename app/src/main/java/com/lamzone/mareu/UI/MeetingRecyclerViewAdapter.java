@@ -60,21 +60,6 @@ public class MeetingRecyclerViewAdapter extends RecyclerView.Adapter<MeetingRecy
 
         Meeting meeting = mMeetings.get(position);
         holder.meetingColor.setColorFilter(meeting.getColor());
-
-       //datePickerTxt.setOnClickListener(new View.OnClickListener() {
-       //    @Override
-       //    public void onClick(View v) {
-       //        FragmentManager fragmentManager = ((AppCompatActivity) mContext).getSupportFragmentManager();
-       //        DialogFragment datePicker = new DatePickerFragment();
-       //        datePicker.show(fragmentManager, "date picker");
-       //    }
-       //});
-
-        //DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.FULL);
-        //String dayMeeting = dateFormat.format(datePickerCalendar.getTime());
-        //holder.meetingDay.setText(dayMeeting);
-
-
         holder.mMeetingInfos.setText(meeting.getInfo());
         holder.meetingDay.setText(meeting.getDay());
         holder.mMeetingEmail.setText(meeting.getEmailList().toString().replace("[",

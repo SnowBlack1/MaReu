@@ -29,7 +29,7 @@ import butterknife.ButterKnife;
 public class MeetingListActivity extends AppCompatActivity {
 
     private MeetingApiService mApiService;
-    public static final Calendar today = Calendar.getInstance();
+
     private List<Meeting> mMeetings = new ArrayList<>();
     private List<Room> mRooms = new ArrayList<>();
     private MeetingRecyclerViewAdapter mAdapter;
@@ -89,14 +89,4 @@ public class MeetingListActivity extends AppCompatActivity {
         initList();
     }
 
-    //@Override
-    //public void onDateSet(DatePicker datePicker, int year, int month, int day) {
-    //    Calendar c = Calendar.getInstance();
-    //    c.set(Calendar.YEAR, year);
-    //    c.set(Calendar.MONTH, month);
-    //    c.set(Calendar.DAY_OF_MONTH, day);
-    //    String currentDateString = DateFormat.getDateInstance(DateFormat.FULL).format(c.getTime());
-//
-    //    meetingDayItem.setText(currentDateString);
-    //}
 }
