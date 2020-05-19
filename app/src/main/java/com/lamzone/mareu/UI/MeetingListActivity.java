@@ -71,11 +71,14 @@ public class MeetingListActivity extends AppCompatActivity {
         mRooms = mApiService.getRooms();
         mRecyclerView.setAdapter(new MeetingRecyclerViewAdapter(mMeetings));
     }
+
     private void initListDate(Date date) {
         mRecyclerView.setAdapter(new MeetingRecyclerViewAdapter(mApiService.getMeetingByDateFilter(date)));
     }
 
-
+    private void initList(String room) {
+        mRecyclerView.setAdapter(new MeetingRecyclerViewAdapter(mApiService.getMeetingByRoomFilter(room)));
+    }
     private void intentAddMeetingActivity() {
         addMeeting.setOnClickListener(v -> {
             Intent intent = new Intent(v.getContext(), AddMeeting.class);
@@ -83,9 +86,7 @@ public class MeetingListActivity extends AppCompatActivity {
         });
     }
 
-    private void initList(String room) {
-        mRecyclerView.setAdapter(new MeetingRecyclerViewAdapter(mApiService.getMeetingByRoomFilter(room)));
-    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
@@ -118,7 +119,7 @@ public class MeetingListActivity extends AppCompatActivity {
             int year = picker.getYear();
             int month = picker.getMonth();
             int day = picker.getDayOfMonth();
-            Date date = new GregorianCalendar(year, month, day).getTime();
+            Date date = new GregorianCalendar(year,month,day).getTime();
             initListDate(date);
         });
         builderDatePicker.setNegativeButton("Reset", (dialog, whichButton) -> initMeetingList());

@@ -8,7 +8,9 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-/**Mock for the API*/
+/**
+ * Mock for the API
+ */
 public class DummyMeetingApiService implements MeetingApiService {
 
     private List<Meeting> meetings = DummyMeetingGenerator.generateMeeting();
@@ -43,10 +45,12 @@ public class DummyMeetingApiService implements MeetingApiService {
 
         for (Meeting meeting : meetings) {
             Calendar meetingCal = Calendar.getInstance();
-            meetingCal.setTime(meeting.getMeetingStart());
+            meetingCal.setTime(meeting.getDayOfMeeting());
 
-            if (meetingCal.get(Calendar.DAY_OF_MONTH) == calSelected.get(Calendar.DAY_OF_MONTH) && meetingCal.get(Calendar.MONTH)
-                    == calSelected.get(Calendar.MONTH) && meetingCal.get(Calendar.YEAR) == calSelected.get(Calendar.YEAR))
+            if (meetingCal.get(Calendar.DAY_OF_MONTH) == calSelected.get(Calendar.DAY_OF_MONTH)
+                    && meetingCal.get(Calendar.MONTH)
+                    == calSelected.get(Calendar.MONTH) && meetingCal.get(Calendar.YEAR)
+                    == calSelected.get(Calendar.YEAR))
                 mMeetingFilteredDate.add(meeting);
         }
         return mMeetingFilteredDate;
@@ -67,4 +71,3 @@ public class DummyMeetingApiService implements MeetingApiService {
 
 
 }
-
