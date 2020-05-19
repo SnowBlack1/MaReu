@@ -15,12 +15,10 @@ import com.lamzone.mareu.DI.DI;
 import com.lamzone.mareu.R;
 import com.lamzone.mareu.events.DeleteMeetingEvent;
 import com.lamzone.mareu.model.Meeting;
-import com.lamzone.mareu.model.Room;
 import com.lamzone.mareu.service.MeetingApiService;
 
 import org.greenrobot.eventbus.EventBus;
 
-import java.util.Calendar;
 import java.util.List;
 
 import butterknife.BindView;
@@ -28,8 +26,7 @@ import butterknife.ButterKnife;
 
 public class MeetingRecyclerViewAdapter extends RecyclerView.Adapter<MeetingRecyclerViewAdapter.ViewHolder> {
 
-    private final List<Meeting> mMeetings;
-    private final List<Room> mRooms;
+    private List<Meeting> mList;
     private MeetingApiService mApiService;
     private Context mContext;
 
@@ -37,13 +34,15 @@ public class MeetingRecyclerViewAdapter extends RecyclerView.Adapter<MeetingRecy
     TextView meetingDayItem;
     @BindView(R.id.date_picker_txt)
     TextView datePickerTxt;
-    Calendar datePickerCalendar= Calendar.getInstance();
 
 
-    public MeetingRecyclerViewAdapter(List<Meeting> items, List<Room> rooms) {
-        mMeetings = items;
-        mRooms = rooms;
+
+    MeetingRecyclerViewAdapter(List<Meeting> mMeetingsList) {
+        mList = mMeetingsList;
+
     }
+
+
 
     @Override
     public MeetingRecyclerViewAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -58,7 +57,7 @@ public class MeetingRecyclerViewAdapter extends RecyclerView.Adapter<MeetingRecy
         mApiService = DI.getMeetingApiService();
 
 
-        Meeting meeting = mMeetings.get(position);
+        Meeting meeting = mList.get(position);
         holder.meetingColor.setColorFilter(meeting.getColor());
         holder.mMeetingInfos.setText(meeting.getInfo());
         holder.meetingDay.setText(meeting.getDay());
@@ -76,7 +75,7 @@ public class MeetingRecyclerViewAdapter extends RecyclerView.Adapter<MeetingRecy
 
     @Override
     public int getItemCount() {
-        return mMeetings.size();
+        return mList.size();
     }
 
 

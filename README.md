@@ -26,7 +26,7 @@ MaReu is the project 4 of the Android Applications Developer course of OpenClass
 
 ## What is MaReu ?
 
-MaReu is an management meeting app, asked by the Lamzone company, which is a big e-shopping company. This app will be used by all the services working at the Lamzone headquarters : developers, human ressources, salespersons, communication team, leading team, etc
+MaReu is an management meeting app, asked by the Lamzone company, which is a big e-shopping company. This app will be used by all the services working at the Lamzone headquarters : developers, human ressources, salespersons, communication team, leading team, etc.
 
 
 ## How to execute & compile MaReu project ?

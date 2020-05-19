@@ -1,9 +1,9 @@
 package com.lamzone.mareu.service;
 
-import com.lamzone.mareu.model.Guest;
 import com.lamzone.mareu.model.Meeting;
 import com.lamzone.mareu.model.Room;
 
+import java.util.Date;
 import java.util.List;
 
 public interface MeetingApiService {
@@ -21,6 +21,6 @@ public interface MeetingApiService {
 
     //boolean checkingMeeting ?
 
-    //List<Meeting> getMeetingByDateFilter
-    //List<Meeting> getMeetingByRoomFilter
+    List<Meeting> getMeetingByDateFilter(Date date);
+    List<Meeting> getMeetingByRoomFilter(String room);
 }
