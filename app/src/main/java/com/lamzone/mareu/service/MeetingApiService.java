@@ -9,7 +9,8 @@ import java.util.List;
 public interface MeetingApiService {
 
     /** Get all meetings*/
-    List<Meeting> getMeetings();
+    List<Meeting> getMeeting();
+
 
     /** Delete a meeting*/
     void deleteMeeting(Meeting meeting);

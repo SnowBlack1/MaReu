@@ -13,22 +13,22 @@ import java.util.List;
  */
 public class DummyMeetingApiService implements MeetingApiService {
 
-    private List<Meeting> meetings = DummyMeetingGenerator.generateMeeting();
+    private List<Meeting> mMeeting = DummyMeetingGenerator.generateMeeting();
 
 
     @Override
-    public List<Meeting> getMeetings() {
-        return meetings;
+    public List<Meeting> getMeeting() {
+        return mMeeting;
     }
 
     @Override
     public void deleteMeeting(Meeting meeting) {
-        meetings.remove(meeting);
+        mMeeting.remove(meeting);
     }
 
     @Override
     public void createMeeting(Meeting meeting) {
-        meetings.add(meeting);
+        mMeeting.add(meeting);
     }
 
     @Override
@@ -43,7 +43,7 @@ public class DummyMeetingApiService implements MeetingApiService {
         Calendar calSelected = Calendar.getInstance();
         calSelected.setTime(date);
 
-        for (Meeting meeting : meetings) {
+        for (Meeting meeting : mMeeting) {
             Calendar meetingCal = Calendar.getInstance();
             meetingCal.setTime(meeting.getDayOfMeeting());
 
@@ -59,7 +59,7 @@ public class DummyMeetingApiService implements MeetingApiService {
     @Override
     public List<Meeting> getMeetingByRoomFilter(String room) {
         List<Meeting> mMeetingFilteredRoom = new ArrayList<>();
-        for (Meeting meeting : meetings) {
+        for (Meeting meeting : mMeeting) {
             if (meeting.getRoom().equals(room))
                 mMeetingFilteredRoom.add(meeting);
         }

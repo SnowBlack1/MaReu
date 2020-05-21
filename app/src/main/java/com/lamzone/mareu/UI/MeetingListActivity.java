@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -55,6 +56,7 @@ public class MeetingListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_meeting_list);
         ButterKnife.bind(this);
         setSupportActionBar(meetingListToolbar);
+        meetingListToolbar.setOverflowIcon(ContextCompat.getDrawable(getApplicationContext(), R.drawable.ic_menu_black_24dp));
 
         mApiService = DI.getMeetingApiService();
 
@@ -67,7 +69,7 @@ public class MeetingListActivity extends AppCompatActivity {
     }
 
     private void initMeetingList() {
-        mMeetings = mApiService.getMeetings();
+        mMeetings = mApiService.getMeeting();
         mRooms = mApiService.getRooms();
         mRecyclerView.setAdapter(new MeetingRecyclerViewAdapter(mMeetings));
     }
