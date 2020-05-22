@@ -1,17 +1,29 @@
-<?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
-
-
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.example.mareu.view.ListActivity">
     <item
-        android:id="@+id/filterDate"
-        app:showAsAction="never"
-        android:title="Filtrer par date"
-        android:icon="@drawable/ic_menu_black_24dp" />
+        android:id="@+id/menu_overflow_button_filter"
+        android:icon="@drawable/ic_menu_black_24dp"
+        app:showAsAction="ifRoom"
+        tools:ignore="MenuTitle">
 
-    <item
-        android:id="@+id/filterLocation"
-        app:showAsAction="never"
-        android:title="Filtrer par salle" />
+        <menu>
+
+            <item
+                android:id="@+id/filterDate"
+                android:orderInCategory="100"
+                android:title="Filtrer par date"
+                app:showAsAction="never" />
+
+            <item
+                android:id="@+id/filterLocation"
+                android:orderInCategory="200"
+                android:title="Filtrer par salle" />
+
+
+        </menu>
+    </item>
+
 
 </menu>
