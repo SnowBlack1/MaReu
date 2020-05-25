@@ -83,6 +83,7 @@ public class MeetingListTestInstrumented {
     @Test
     public void addMeetingWithSuccess(){
         //Checking that items count is equal to MEETING_LIST_SIZE
+        onView(withId(R.id.main_layout_meeting_list)).check(matches(isDisplayed()));
         onView(withId(R.id.recycler_view_meeting_list)).check(withItemCount(MEETING_LIST_SIZE));
 
         // Click on the creation button for a new meeting
@@ -127,12 +128,18 @@ public class MeetingListTestInstrumented {
         // Click on the creation button for a new meeting
         onView(withId(R.id.meeting_save)).perform(scrollTo(),click());
 
+        //onView(withId(R.id.recycler_view_meeting_list)).check(matches(isDisplayed()));
+        //onView(withId(R.id.main_layout_meeting_list)).check(matches(isDisplayed()));
 
-        //Checking that count of items is equal to MEETING_LIST_SIZE +1
-        onView(withId(R.id.recycler_view_meeting_list)).check(matches(isDisplayed()));
-        //onView(withClassName(Matchers.equalTo(RecyclerView.class.getName()))).check(withItemCount(MEETING_LIST_SIZE + 1));
-        //onView(withId(R.id.recycler_view_meeting_list)).check(withItemCount(MEETING_LIST_SIZE + 1));
+        // Checking that count of items is equal to MEETING_LIST_SIZE +1
+        onView(withId(R.id.recycler_view_meeting_list)).check(withItemCount(MEETING_LIST_SIZE + 1));
+
+
+        //onView(withId(R.id.recycler_view_meeting_list)).check(withItemCount(MEETING_LIST_SIZE +1));
     }
+        //onView(withId(R.id.recycler_view_meeting_list)).check(matches(isDisplayed()));
+        //onView(withClassName(Matchers.equalTo(RecyclerView.class.getName()))).check(withItemCount(MEETING_LIST_SIZE + 1));
+
 
     @Test
     public void filterMeetingByDate() {

@@ -20,7 +20,6 @@ public interface MeetingApiService {
 
     List<Room> getRooms();
 
-    //boolean checkingMeeting ?
 
     List<Meeting> getMeetingByDateFilter(Date date);
     List<Meeting> getMeetingByRoomFilter(String room);
