@@ -16,9 +16,7 @@ import java.util.Calendar;
 import butterknife.BindView;
 
 public class TimePickerFragment extends DialogFragment implements TimePickerDialog.OnTimeSetListener {
-    //private StartTimePickerFragmentCallback mFragmentCallback;
-    public static Calendar calendar = null;
-    public static final Calendar today = Calendar.getInstance();
+
 
     @BindView(R.id.start_time_picker_txt)
     TextView startMeetingTimePicker;
@@ -37,19 +35,17 @@ public class TimePickerFragment extends DialogFragment implements TimePickerDial
                 DateFormat.is24HourFormat(getActivity()));
     }
 
+
     @Override
-    public void onTimeSet(TimePicker timePicker, int hourOfDay, int minute) {
-        //Do sth w/ time chosen by user
+    public void onTimeSet(TimePicker timePicker, int startMeeting, int endMeeting) {
+
     }
 }
 
-//public interface StartTimePickerFragmentCallback{
-//    public void onStartTimeSelected(int hour,int minute);
-//}
-//
-//public void onStartTimeSelected(int hour, int minute){
-//    mFragmentCallback.onStartTimeSelected(hour,minute);
-//}
+
+
+
+
 
 
 

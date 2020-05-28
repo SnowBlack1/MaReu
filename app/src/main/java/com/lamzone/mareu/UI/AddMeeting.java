@@ -37,8 +37,6 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 
-
-
 public class AddMeeting extends AppCompatActivity {
 
 
@@ -83,7 +81,6 @@ public class AddMeeting extends AppCompatActivity {
     Calendar startMeetingCalendar = Calendar.getInstance();
     Calendar endMeetingCalendar = Calendar.getInstance();
     Calendar datePickerCalendar = Calendar.getInstance();
-    DatePickerDialog.OnDateSetListener mDateSetListener;
 
 
     @Override
@@ -198,7 +195,7 @@ public class AddMeeting extends AppCompatActivity {
         List<String> mGuestsList = new ArrayList<>(Arrays.asList(guestsEmailList));
 
         Meeting mMeeting = new Meeting(
-                DummyMeetingGenerator.generateColor(),
+                DummyMeetingGenerator.getActualColor(),
                 meetingRoomSpinner.getSelectedItem().toString(),
                 datePickerCalendar.getTime(),
                 startMeetingCalendar.getTime(),
@@ -207,8 +204,8 @@ public class AddMeeting extends AppCompatActivity {
                 mGuestsList);
         mMeetingApiService.createMeeting(mMeeting);
         finish();
-
     }
+
 
     public void onTextChanged() {
         meetingSubject.addTextChangedListener(new TextWatcher() {
@@ -226,5 +223,6 @@ public class AddMeeting extends AppCompatActivity {
 
         });
     }
+
 
 }

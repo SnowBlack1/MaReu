@@ -9,12 +9,10 @@ public class Room {
 
     private int id;
     private String roomName;
-    private String roomImgUrl;
 
     public Room (int id, String roomName){
         this.id = id;
         this.roomName = roomName;
-        this.roomImgUrl = roomImgUrl;
     }
 
     private static final List<Room> DUMMY_ROOMS = Arrays.asList(
@@ -45,15 +43,5 @@ public class Room {
         return roomName;
     }
 
-    public void setRoomName(String roomName) {
-        this.roomName = roomName;
-    }
 
-    public String getRoomImgUrl() {
-        return roomImgUrl;
-    }
-
-    public void setRoomImgUrl(String roomImgUrl) {
-        this.roomImgUrl = roomImgUrl;
-    }
 }

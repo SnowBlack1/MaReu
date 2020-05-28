@@ -67,7 +67,4 @@ public class DummyMeetingApiService implements MeetingApiService {
     }
 
 
-    //checkingMeeting?
-
-
 }

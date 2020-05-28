@@ -11,11 +11,6 @@ import java.util.Calendar;
 public class DatePickerFragment extends DialogFragment {
 
 
-    //@BindView(R.id.date_picker_txt)
-    //TextView datePickerTxt;
-    //@BindView(R.id.item_meeting_day)
-    //TextView meetingDayItem;
-
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState){
