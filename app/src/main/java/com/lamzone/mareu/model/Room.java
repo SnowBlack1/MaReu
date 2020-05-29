@@ -10,7 +10,7 @@ public class Room {
     private int id;
     private String roomName;
 
-    public Room (int id, String roomName){
+    private Room(int id, String roomName){
         this.id = id;
         this.roomName = roomName;
     }
@@ -39,7 +39,7 @@ public class Room {
         this.id = id;
     }
 
-    public String getRoomName() {
+    private String getRoomName() {
         return roomName;
     }
 

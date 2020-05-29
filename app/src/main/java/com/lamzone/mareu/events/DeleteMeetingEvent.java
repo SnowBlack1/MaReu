@@ -4,17 +4,19 @@ import com.lamzone.mareu.model.Meeting;
 
 public class DeleteMeetingEvent {
 
-    /**Meeting to delete**/
+    /**
+     * Meeting to delete
+     **/
 
     public Meeting meeting;
 
 
-
-    /** Constructor
+    /**
+     * Constructor
      *
      * @param meeting
      */
-    public DeleteMeetingEvent (Meeting meeting){
+    public DeleteMeetingEvent(Meeting meeting) {
         this.meeting = meeting;
     }
 }

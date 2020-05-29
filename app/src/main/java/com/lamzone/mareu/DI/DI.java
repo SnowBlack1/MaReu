@@ -3,7 +3,9 @@ package com.lamzone.mareu.DI;
 import com.lamzone.mareu.service.DummyMeetingApiService;
 import com.lamzone.mareu.service.MeetingApiService;
 
-/**Dependency injector to get instance of services*/
+/**
+ * Dependency injector to get instance of services
+ */
 
 public class DI {
 
@@ -11,6 +13,7 @@ public class DI {
 
     /**
      * Get an instance on @{@link MeetingApiService}
+     *
      * @return
      */
     public static MeetingApiService getMeetingApiService() {
@@ -19,6 +22,7 @@ public class DI {
 
     /**
      * Get always a new instance on @{@link MeetingApiService}.
+     *
      * @return
      */
     public static MeetingApiService getNewInstanceApiService() {

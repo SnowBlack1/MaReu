@@ -35,9 +35,6 @@ import static org.hamcrest.Matchers.notNullValue;
 
 public class AddMeetingTest {
 
-
-
-
     @Rule
     public ActivityTestRule<MeetingListActivity> mActivityTestRule =
             new ActivityTestRule<>(MeetingListActivity.class);

@@ -9,13 +9,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.lamzone.mareu.DI.DI;
 import com.lamzone.mareu.R;
 import com.lamzone.mareu.events.DeleteMeetingEvent;
 import com.lamzone.mareu.model.Meeting;
-import com.lamzone.mareu.service.MeetingApiService;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -27,7 +26,6 @@ import butterknife.ButterKnife;
 public class MeetingRecyclerViewAdapter extends RecyclerView.Adapter<MeetingRecyclerViewAdapter.ViewHolder> {
 
     private List<Meeting> mList;
-    private MeetingApiService mApiService;
     private Context mContext;
 
     @BindView(R.id.item_meeting_day)
@@ -35,15 +33,11 @@ public class MeetingRecyclerViewAdapter extends RecyclerView.Adapter<MeetingRecy
     @BindView(R.id.date_picker_txt)
     TextView datePickerTxt;
 
-
-
     MeetingRecyclerViewAdapter(List<Meeting> mMeetingsList) {
         mList = mMeetingsList;
-
     }
 
-
-
+    @NonNull
     @Override
     public MeetingRecyclerViewAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
@@ -54,8 +48,6 @@ public class MeetingRecyclerViewAdapter extends RecyclerView.Adapter<MeetingRecy
 
     @Override
     public void onBindViewHolder(MeetingRecyclerViewAdapter.ViewHolder holder, int position) {
-        mApiService = DI.getMeetingApiService();
-
 
         Meeting meeting = mList.get(position);
         holder.meetingColor.setColorFilter(meeting.getColor());
@@ -64,12 +56,9 @@ public class MeetingRecyclerViewAdapter extends RecyclerView.Adapter<MeetingRecy
         holder.mMeetingEmail.setText(meeting.getEmailList().toString().replace("[",
                 " ").replace("]", " "));
 
-        holder.mDeleteButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                EventBus.getDefault().post(new DeleteMeetingEvent(meeting));
-                Toast.makeText(mContext, "La réunion a bien été supprimée", Toast.LENGTH_LONG).show();
-            }
+        holder.mDeleteButton.setOnClickListener(view -> {
+            EventBus.getDefault().post(new DeleteMeetingEvent(meeting));
+            Toast.makeText(mContext, "La réunion a bien été supprimée", Toast.LENGTH_LONG).show();
         });
     }
 
@@ -77,8 +66,6 @@ public class MeetingRecyclerViewAdapter extends RecyclerView.Adapter<MeetingRecy
     public int getItemCount() {
         return mList.size();
     }
-
-
 
 
     public class ViewHolder extends RecyclerView.ViewHolder { // voir pour viewBinding pour les elements de l'item
@@ -103,7 +90,6 @@ public class MeetingRecyclerViewAdapter extends RecyclerView.Adapter<MeetingRecy
             ButterKnife.bind(this, view);
         }
     }
-
 
 }
 

@@ -1,5 +1,7 @@
 package com.lamzone.mareu.model;
 
+import android.annotation.SuppressLint;
+
 import java.io.Serializable;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -19,37 +21,28 @@ public class Meeting implements Serializable {
     private Date dayOfMeeting;
     private String subject;
     private List<String> emailList;
-    private List<String> meetings;
+    // private List<String> meetings;
 
 
     public Date getMeetingStart() {
         return meetingStart;
     }
 
-    public void setMeetingStart(Date meetingStart) {
-        this.meetingStart = meetingStart;
-    }
+    //public void setMeetingStart(Date meetingStart) {
+    //    this.meetingStart = meetingStart;
+    //}
 
     public Date getMeetingEnd() {
         return meetingEnd;
     }
 
-    public void setMeetingEnd(Date meetingEnd) {
-        this.meetingEnd = meetingEnd;
-    }
+    //public void setMeetingEnd(Date meetingEnd) {
+    //    this.meetingEnd = meetingEnd;
+    //}
 
 
     public int getColor() {
         return color;
-    }
-
-
-    public List<String> getMeetings() {
-        return meetings;
-    }
-
-    public void setMeetings(List<String> meetings) {
-        this.meetings = meetings;
     }
 
     public void setColor(int color) {
@@ -60,32 +53,17 @@ public class Meeting implements Serializable {
         return dayOfMeeting;
     }
 
-    public void setDayOfMeeting(Date dayOfMeeting) {
-        this.dayOfMeeting = dayOfMeeting;
-    }
-
     public String getRoom() {
         return room;
     }
 
-    public void setRoom(String room) {
-        this.room = room;
-    }
 
-    public String getSubject() {
+    private String getSubject() {
         return subject;
-    }
-
-    public void setSubject(String subject) {
-        this.subject = subject;
     }
 
     public List<String> getEmailList() {
         return emailList;
-    }
-
-    public void setEmailList(List<String> emailList) {
-        this.emailList = emailList;
     }
 
     public Meeting(int color, String room, Date dayOfMeeting, Date meetingStart, Date meetingEnd, String subject, List<String> emailList) {
@@ -105,10 +83,10 @@ public class Meeting implements Serializable {
                 + " - " + this.getSubject();
     }
 
-   public String getDay(){
-     SimpleDateFormat spf = new SimpleDateFormat("dd/MM/yyyy");
-       return spf.format(dayOfMeeting);
-   }
+    public String getDay() {
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat spf = new SimpleDateFormat("dd/MM/yyyy");
+        return spf.format(dayOfMeeting);
+    }
 
 
 }

@@ -78,8 +78,6 @@ public class MeetingListTestInstrumented {
                 .check(matches(hasChildCount(MEETING_LIST_SIZE - 1)));
     }
 
-
-
     @Test
     public void b_filterMeetingByDate() {
         // Open the overflow menu
@@ -123,7 +121,7 @@ public class MeetingListTestInstrumented {
     @Test
     public void c_filterMeetingByRoom() {
         // Before setting the filter => MEETING_LIST_SIZE
-       onView(withId(R.id.recycler_view_meeting_list)).check(withItemCount(MEETING_LIST_SIZE));
+        onView(withId(R.id.recycler_view_meeting_list)).check(withItemCount(MEETING_LIST_SIZE));
 
         // Open the overflow menu
         onView(withId(R.id.menu_overflow_button_filter))

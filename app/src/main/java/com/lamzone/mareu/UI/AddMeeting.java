@@ -5,7 +5,6 @@ import android.app.TimePickerDialog;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -31,6 +30,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -55,17 +55,8 @@ public class AddMeeting extends AppCompatActivity {
     @BindView(R.id.meeting_subject_txt)
     EditText meetingSubject;
 
-    //@BindView(R.id.meeting_date_picker)
-    //DatePicker mDatePicker;
     @BindView(R.id.date_picker_txt)
     TextView meetingDayText;
-
-
-    //@BindView(R.id.start_time_btn)
-    //Button startTimeMeetingButton;
-
-    //@BindView(R.id.end_time_button)
-    //Button endTimeMeetingButton;
 
     @BindView(R.id.guest_email)
     MultiAutoCompleteTextView guestEmail;
@@ -89,33 +80,23 @@ public class AddMeeting extends AppCompatActivity {
         setContentView(R.layout.activity_add_meeting);
         ButterKnife.bind(this);
 
-
         colorMeeting.setOnClickListener(view -> colorMeeting.setBackgroundColor(DummyMeetingGenerator.generateColor()));
 
         initToolbar();
-        //startTimePicker();
-        //endTimePicker();
         initRoomSpinner();
         autoCompleteGuestEmail();
         setStartTimePicker();
         setEndTimePicker();
         setDatePickerDialog();
         onTextChanged();
-
-
     }
 
     public void initToolbar() {
         setSupportActionBar(addMeetingToolbar);
         addMeetingToolbar.setNavigationIcon(R.drawable.ic_back_arrow_24dp);
-        getSupportActionBar().setTitle("Ajouter une réunion");
+        Objects.requireNonNull(getSupportActionBar()).setTitle("Ajouter une réunion");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        addMeetingToolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
-            }
-        });
+        addMeetingToolbar.setNavigationOnClickListener(view -> finish());
     }
 
     //Spinner to choose a Room for a meeting
@@ -202,8 +183,15 @@ public class AddMeeting extends AppCompatActivity {
                 endMeetingCalendar.getTime(),
                 meetingSubject.getText().toString(),
                 mGuestsList);
+
+        // if (mMeetingApiService.checkingMeeting(mMeeting)) {
         mMeetingApiService.createMeeting(mMeeting);
         finish();
+        //}else {
+        //startMeetingTimePicker.getText();
+        //endMeetingTimePicker.getText();
+        //Toast.makeText(this,"Veuillez sélectionner une heure valide",Toast.LENGTH_LONG);
+        //}
     }
 
 

@@ -26,4 +26,7 @@ public interface MeetingApiService {
     /**Meeting filter by room*/
     List<Meeting> getMeetingByRoomFilter(String room);
 
+    /**Check meeting consistency*/
+    boolean checkingMeeting(Meeting meeting);
+
 }

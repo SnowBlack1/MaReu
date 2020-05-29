@@ -66,5 +66,40 @@ public class DummyMeetingApiService implements MeetingApiService {
         return mMeetingFilteredRoom;
     }
 
+    @Override
+    public boolean checkingMeeting(Meeting meeting) {
+        List<Meeting> meetingAsTheSameDay = new ArrayList<>();
+
+        Calendar calSelected = Calendar.getInstance();
+        calSelected.setTime(meeting.getMeetingStart());
+
+        for (Meeting mMeetingAsTheSameDay : mMeeting) {
+            Calendar meetingCal = Calendar.getInstance();
+            meetingCal.setTime(mMeetingAsTheSameDay.getMeetingStart());
+
+            if (meetingCal.get(Calendar.DAY_OF_MONTH) == calSelected.get(Calendar.DAY_OF_MONTH))
+                meetingAsTheSameDay.add(mMeetingAsTheSameDay);
+        }
+        if (meetingAsTheSameDay.size() == 0) return true;
+
+        List<Meeting> meetingAsTheSameRoom = new ArrayList<>();
+        for (Meeting mMeetingAsTheSameRoom : meetingAsTheSameDay) {
+            if (meeting.getRoom().equals(mMeetingAsTheSameRoom.getRoom()))
+                meetingAsTheSameRoom.add(mMeetingAsTheSameRoom);
+        }
+
+        for (Meeting mMeeting : meetingAsTheSameRoom) {
+
+            if (meeting.getMeetingStart().before(mMeeting.getMeetingStart()) && meeting.getMeetingEnd()
+                    .before(mMeeting.getMeetingStart()))
+                return true;
+
+            if (meeting.getMeetingStart().after(mMeeting.getMeetingEnd()) && meeting.getMeetingEnd()
+                    .after(mMeeting.getMeetingEnd()))
+                return true;
+        }
+        return false;
+    }
+
 
 }
