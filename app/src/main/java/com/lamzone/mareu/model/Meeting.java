@@ -21,25 +21,14 @@ public class Meeting implements Serializable {
     private Date dayOfMeeting;
     private String subject;
     private List<String> emailList;
-    // private List<String> meetings;
-
 
     public Date getMeetingStart() {
         return meetingStart;
     }
 
-    //public void setMeetingStart(Date meetingStart) {
-    //    this.meetingStart = meetingStart;
-    //}
-
     public Date getMeetingEnd() {
         return meetingEnd;
     }
-
-    //public void setMeetingEnd(Date meetingEnd) {
-    //    this.meetingEnd = meetingEnd;
-    //}
-
 
     public int getColor() {
         return color;
@@ -56,7 +45,6 @@ public class Meeting implements Serializable {
     public String getRoom() {
         return room;
     }
-
 
     private String getSubject() {
         return subject;
@@ -87,6 +75,5 @@ public class Meeting implements Serializable {
         @SuppressLint("SimpleDateFormat") SimpleDateFormat spf = new SimpleDateFormat("dd/MM/yyyy");
         return spf.format(dayOfMeeting);
     }
-
 
 }

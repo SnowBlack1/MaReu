@@ -15,6 +15,17 @@ public class Room {
         this.roomName = roomName;
     }
 
+    public long getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    private String getRoomName() {
+        return roomName;
+    }
     private static final List<Room> DUMMY_ROOMS = Arrays.asList(
             new Room(1,"Salle A"),
             new Room(2,"Salle B"),
@@ -30,18 +41,4 @@ public class Room {
         }
         return roomList;
     }
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    private String getRoomName() {
-        return roomName;
-    }
-
-
 }

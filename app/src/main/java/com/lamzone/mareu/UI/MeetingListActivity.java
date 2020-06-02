@@ -55,7 +55,6 @@ public class MeetingListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_meeting_list);
         ButterKnife.bind(this);
         setSupportActionBar(meetingListToolbar);
-       // meetingListToolbar.setOverflowIcon(ContextCompat.getDrawable(getApplicationContext(), R.drawable.ic_menu_black_24dp));
 
         mApiService = DI.getMeetingApiService();
 
@@ -69,7 +68,6 @@ public class MeetingListActivity extends AppCompatActivity {
 
     private void initMeetingList() {
         mMeetings = mApiService.getMeeting();
-        mRooms = mApiService.getRooms();
         mRecyclerView.setAdapter(new MeetingRecyclerViewAdapter(mMeetings));
     }
 
@@ -77,7 +75,7 @@ public class MeetingListActivity extends AppCompatActivity {
         mRecyclerView.setAdapter(new MeetingRecyclerViewAdapter(mApiService.getMeetingByDateFilter(date)));
     }
 
-    private void initList(String room) {
+    private void initListRoom(String room) {
         mRecyclerView.setAdapter(new MeetingRecyclerViewAdapter(mApiService.getMeetingByRoomFilter(room)));
     }
     private void intentAddMeetingActivity() {
@@ -86,7 +84,6 @@ public class MeetingListActivity extends AppCompatActivity {
             startActivity(intent);
         });
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -139,7 +136,7 @@ public class MeetingListActivity extends AppCompatActivity {
 
         builderRoom.setSingleChoiceItems(roomArray, -1, (dialog, which) -> room[0] = finalRoomList[which]);
 
-        builderRoom.setPositiveButton("OK", (dialogInterface, i) -> initList(room[0]));
+        builderRoom.setPositiveButton("OK", (dialogInterface, i) -> initListRoom(room[0]));
 
         builderRoom.setNegativeButton("Reset", (dialog, whichButton) -> initMeetingList());
 
@@ -161,10 +158,10 @@ public class MeetingListActivity extends AppCompatActivity {
         EventBus.getDefault().unregister(this);
     }
 
-    @Subscribe
+   @Subscribe
     public void onDeleteMeetingEvent(DeleteMeetingEvent deleteMeetingEvent) {
         mApiService.deleteMeeting(deleteMeetingEvent.meeting);
-        initMeetingList();
+       initMeetingList();
     }
 
 }

@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.MultiAutoCompleteTextView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -99,58 +100,6 @@ public class AddMeeting extends AppCompatActivity {
         addMeetingToolbar.setNavigationOnClickListener(view -> finish());
     }
 
-    //Spinner to choose a Room for a meeting
-    public void initRoomSpinner() {
-        List<String> spinner = Room.getRoom();
-        ArrayAdapter roomArrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, spinner);
-        meetingRoomSpinner.setDropDownHorizontalOffset(android.R.layout.simple_dropdown_item_1line);
-        meetingRoomSpinner.setAdapter(roomArrayAdapter);
-    }
-
-    //Auto complete view for meeting guest emails
-    public void autoCompleteGuestEmail() {
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
-                android.R.layout.simple_dropdown_item_1line, Guest.guestList);
-
-        guestEmail.setAdapter(adapter);
-        guestEmail.setTokenizer(new MultiAutoCompleteTextView.CommaTokenizer());
-    }
-
-    private void setStartTimePicker() {
-        final TimePickerDialog.OnTimeSetListener startTime = (view, hourOfDay, minute) -> {
-            startMeetingCalendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
-            startMeetingCalendar.set(Calendar.MINUTE, minute);
-            updateStartTimeTextView();
-        };
-        startMeetingTimePicker.setOnClickListener(v -> new TimePickerDialog(AddMeeting.this,
-                startTime, startMeetingCalendar.get(Calendar.HOUR),
-                startMeetingCalendar.get(Calendar.MINUTE),
-                true).show());
-    }
-
-    private void setEndTimePicker() {
-        final TimePickerDialog.OnTimeSetListener endTime = (view, hourOfDay, minute) -> {
-            endMeetingCalendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
-            endMeetingCalendar.set(Calendar.MINUTE, minute);
-            updateEndTimeTextView();
-        };
-        endMeetingTimePicker.setOnClickListener(view -> new TimePickerDialog(AddMeeting.this,
-                endTime, endMeetingCalendar.get(Calendar.HOUR),
-                endMeetingCalendar.get(Calendar.MINUTE),
-                true).show());
-    }
-
-    private void updateStartTimeTextView() {
-        DateFormat timeFormat1 = DateFormat.getTimeInstance(DateFormat.SHORT);
-        startMeetingTimePicker.setText(timeFormat1.format(startMeetingCalendar.getTime()));
-    }
-
-    private void updateEndTimeTextView() {
-        DateFormat timeFormat2 = DateFormat.getTimeInstance(DateFormat.SHORT);
-        endMeetingTimePicker.setText(timeFormat2.format(endMeetingCalendar.getTime()));
-
-    }
-
     // DATEPICKER
     private void setDatePickerDialog() {
         final DatePickerDialog.OnDateSetListener dayOfMeeting = (view, year, monthOfYear, dayOfMonth) -> {
@@ -169,48 +118,116 @@ public class AddMeeting extends AppCompatActivity {
         meetingDayText.setText(dateFormat.format(datePickerCalendar.getTime()));
     }
 
+    //Time picker meeting beginning
+    private void setStartTimePicker() {
+        final TimePickerDialog.OnTimeSetListener startTime = (view, hourOfDay, minute) -> {
+            startMeetingCalendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
+            startMeetingCalendar.set(Calendar.MINUTE, minute);
+            updateStartTimeTextView();
+        };
+        startMeetingTimePicker.setOnClickListener(v -> new TimePickerDialog(AddMeeting.this,
+                startTime, startMeetingCalendar.get(Calendar.HOUR),
+                startMeetingCalendar.get(Calendar.MINUTE),
+                true).show());
+    }
+
+    private void updateStartTimeTextView() {
+        DateFormat timeFormat1 = DateFormat.getTimeInstance(DateFormat.SHORT);
+        startMeetingTimePicker.setText(timeFormat1.format(startMeetingCalendar.getTime()));
+    }
+
+    //Time Picker meeting end
+    private void setEndTimePicker() {
+        final TimePickerDialog.OnTimeSetListener endTime = (view, hourOfDay, minute) -> {
+            endMeetingCalendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
+            endMeetingCalendar.set(Calendar.MINUTE, minute);
+            updateEndTimeTextView();
+        };
+        endMeetingTimePicker.setOnClickListener(view -> new TimePickerDialog(AddMeeting.this,
+                endTime, endMeetingCalendar.get(Calendar.HOUR),
+                endMeetingCalendar.get(Calendar.MINUTE),
+                true).show());
+    }
+
+    private void updateEndTimeTextView() {
+        DateFormat timeFormat2 = DateFormat.getTimeInstance(DateFormat.SHORT);
+        endMeetingTimePicker.setText(timeFormat2.format(endMeetingCalendar.getTime()));
+    }
+
+    //Spinner to choose a Room for a meeting
+    public void initRoomSpinner() {
+        List<String> spinner = Room.getRoom();
+        ArrayAdapter roomArrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, spinner);
+        meetingRoomSpinner.setDropDownHorizontalOffset(android.R.layout.simple_dropdown_item_1line);
+        meetingRoomSpinner.setAdapter(roomArrayAdapter);
+    }
+
+    //Auto complete view for meeting guest emails
+    public void autoCompleteGuestEmail() {
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+                android.R.layout.simple_dropdown_item_1line, Guest.guestList);
+
+        guestEmail.setAdapter(adapter);
+        guestEmail.setTokenizer(new MultiAutoCompleteTextView.CommaTokenizer());
+    }
+
+
     //Save the created meeting
     @OnClick(R.id.meeting_save)
     void addMeeting() {
         String[] guestsEmailList = guestEmail.getText().toString().split("\n");
         List<String> mGuestsList = new ArrayList<>(Arrays.asList(guestsEmailList));
 
-        Meeting mMeeting = new Meeting(
-                DummyMeetingGenerator.getActualColor(),
-                meetingRoomSpinner.getSelectedItem().toString(),
-                datePickerCalendar.getTime(),
-                startMeetingCalendar.getTime(),
-                endMeetingCalendar.getTime(),
-                meetingSubject.getText().toString(),
-                mGuestsList);
+        if (meetingSubject.getText().toString().length() == 0 ||
+            meetingDayText.getText().toString().length() == 0 || //le datepicker & les 2 timepicker ne fonctionnent pas
+            startMeetingTimePicker.getText().toString().length()== 0||
+            endMeetingTimePicker.getText().toString().length() == 0||
+            guestEmail.getText().toString().length() == 0){
 
-        // if (mMeetingApiService.checkingMeeting(mMeeting)) {
-        mMeetingApiService.createMeeting(mMeeting);
-        finish();
-        //}else {
-        //startMeetingTimePicker.getText();
-        //endMeetingTimePicker.getText();
-        //Toast.makeText(this,"Veuillez sélectionner une heure valide",Toast.LENGTH_LONG);
-        //}
+            Toast.makeText(getApplicationContext(), "Il faut remplir tout les champs", Toast.LENGTH_SHORT).show();
+
+        } else{
+
+            Meeting mMeeting = new Meeting(
+                    DummyMeetingGenerator.getActualColor(),
+                    meetingRoomSpinner.getSelectedItem().toString(),
+                    datePickerCalendar.getTime(),
+                    startMeetingCalendar.getTime(),
+                    endMeetingCalendar.getTime(),
+                    meetingSubject.getText().toString(),
+                    mGuestsList);
+            mMeetingApiService.createMeeting(mMeeting);
+            finish();
+        }
     }
 
+    //if (meeting(param methode?).getDateStart().before(mMeeting(reu a créer).getDateStart()) && meeting.getDateEnd()
+    //        .before(mMeeting.getDateStart()))
+    //        toast pour signaler que heure fin ne doit pas être avant l'heure de début;
 
-    public void onTextChanged() {
-        meetingSubject.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            }
+    //        if (meeting.getDateStart().after(mMeeting.getDateEnd()) && meeting.getDateEnd()
+    //        .after(mMeeting.getDateEnd()))
+    //        toast pour signaler que heure début ne peut pas etre apres l'heure de fin;
 
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-            }
 
-            @Override
-            public void afterTextChanged(Editable s) {
-            }
+
+//A supprimer ?
+public void onTextChanged(){
+        meetingSubject.addTextChangedListener(new TextWatcher(){
+@Override
+public void beforeTextChanged(CharSequence s,int start,int count,int after){
+        }
+
+@Override
+public void onTextChanged(CharSequence s,int start,int before,int count){
+        }
+
+@Override
+public void afterTextChanged(Editable s){
+        }
 
         });
-    }
+        }
 
 
-}
+        }

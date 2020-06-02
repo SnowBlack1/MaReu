@@ -1,7 +1,6 @@
 package com.lamzone.mareu.service;
 
 import com.lamzone.mareu.model.Meeting;
-import com.lamzone.mareu.model.Room;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -14,7 +13,6 @@ import java.util.List;
 public class DummyMeetingApiService implements MeetingApiService {
 
     private List<Meeting> mMeeting = DummyMeetingGenerator.generateMeeting();
-
 
     @Override
     public List<Meeting> getMeeting() {
@@ -31,10 +29,6 @@ public class DummyMeetingApiService implements MeetingApiService {
         mMeeting.add(meeting);
     }
 
-    @Override
-    public List<Room> getRooms() {
-        return null;
-    }
 
     @Override
     public List<Meeting> getMeetingByDateFilter(Date date) {
@@ -64,41 +58,6 @@ public class DummyMeetingApiService implements MeetingApiService {
                 mMeetingFilteredRoom.add(meeting);
         }
         return mMeetingFilteredRoom;
-    }
-
-    @Override
-    public boolean checkingMeeting(Meeting meeting) {
-        List<Meeting> meetingAsTheSameDay = new ArrayList<>();
-
-        Calendar calSelected = Calendar.getInstance();
-        calSelected.setTime(meeting.getMeetingStart());
-
-        for (Meeting mMeetingAsTheSameDay : mMeeting) {
-            Calendar meetingCal = Calendar.getInstance();
-            meetingCal.setTime(mMeetingAsTheSameDay.getMeetingStart());
-
-            if (meetingCal.get(Calendar.DAY_OF_MONTH) == calSelected.get(Calendar.DAY_OF_MONTH))
-                meetingAsTheSameDay.add(mMeetingAsTheSameDay);
-        }
-        if (meetingAsTheSameDay.size() == 0) return true;
-
-        List<Meeting> meetingAsTheSameRoom = new ArrayList<>();
-        for (Meeting mMeetingAsTheSameRoom : meetingAsTheSameDay) {
-            if (meeting.getRoom().equals(mMeetingAsTheSameRoom.getRoom()))
-                meetingAsTheSameRoom.add(mMeetingAsTheSameRoom);
-        }
-
-        for (Meeting mMeeting : meetingAsTheSameRoom) {
-
-            if (meeting.getMeetingStart().before(mMeeting.getMeetingStart()) && meeting.getMeetingEnd()
-                    .before(mMeeting.getMeetingStart()))
-                return true;
-
-            if (meeting.getMeetingStart().after(mMeeting.getMeetingEnd()) && meeting.getMeetingEnd()
-                    .after(mMeeting.getMeetingEnd()))
-                return true;
-        }
-        return false;
     }
 
 

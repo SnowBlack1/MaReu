@@ -91,7 +91,6 @@ public class AddMeetingTest {
         onView(withId(R.id.guest_email))
                 .perform(click())
                 .perform(typeText("fire"));
-        //onData(anything()).atPosition(1).perform(click());
 
         // Click on the creation button for a new meeting
         onView(withId(R.id.meeting_save)).perform(scrollTo(), click());
