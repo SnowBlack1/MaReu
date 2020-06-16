@@ -102,7 +102,7 @@
                     android:layout_gravity="center_horizontal"
                     android:layout_margin="5dp"
                     android:backgroundTint="@color/colorPrimary"
-                    android:text="Jour de la réunion"
+                    android:text="@string/meeting_day"
                     android:textSize="15sp" />
 
                 <!--<DatePicker

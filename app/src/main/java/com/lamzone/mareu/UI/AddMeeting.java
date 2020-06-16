@@ -3,8 +3,6 @@ package com.lamzone.mareu.UI;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -89,7 +87,6 @@ public class AddMeeting extends AppCompatActivity {
         setStartTimePicker();
         setEndTimePicker();
         setDatePickerDialog();
-        onTextChanged();
     }
 
     public void initToolbar() {
@@ -178,56 +175,46 @@ public class AddMeeting extends AppCompatActivity {
         String[] guestsEmailList = guestEmail.getText().toString().split("\n");
         List<String> mGuestsList = new ArrayList<>(Arrays.asList(guestsEmailList));
 
+        //SimpleDateFormat sdf = new SimpleDateFormat("dd-mm-yyyy");
+        //Date startTime = sdf.parse(String.valueOf(startMeetingTimePicker));
+        //Date endTime = sdf.parse(String.valueOf(endMeetingTimePicker));
+//
+        //if (startTime.compareTo(endTime) > 0){
+        //    Toast.makeText(this,"L'heure de début n'est pas valide",Toast.LENGTH_SHORT);
+        //} else if (endTime.compareTo(startTime) < 0){
+        //    Toast.makeText(this,"L'heure de fin n'est pas valide",Toast.LENGTH_SHORT);
+        //}
+
+
         if (meetingSubject.getText().toString().length() == 0 ||
-            meetingDayText.getText().toString().length() == 0 || //le datepicker & les 2 timepicker ne fonctionnent pas
-            startMeetingTimePicker.getText().toString().length()== 0||
-            endMeetingTimePicker.getText().toString().length() == 0||
-            guestEmail.getText().toString().length() == 0){
+                meetingDayText.getText().toString().equals(getString(R.string.meeting_day)) ||
+                startMeetingTimePicker.getText().toString().equals(getString(R.string.meeting_start_time)) ||
+                endMeetingTimePicker.getText().toString().equals(getString(R.string.meeting_end_time)) ||
+                guestEmail.getText().toString().length() == 0) {
 
             Toast.makeText(getApplicationContext(), "Il faut remplir tout les champs", Toast.LENGTH_SHORT).show();
 
-        } else{
+        } else {
+            long startMillis = startMeetingCalendar.getTimeInMillis();
+            long endMillis = endMeetingCalendar.getTimeInMillis();
 
-            Meeting mMeeting = new Meeting(
-                    DummyMeetingGenerator.getActualColor(),
-                    meetingRoomSpinner.getSelectedItem().toString(),
-                    datePickerCalendar.getTime(),
-                    startMeetingCalendar.getTime(),
-                    endMeetingCalendar.getTime(),
-                    meetingSubject.getText().toString(),
-                    mGuestsList);
-            mMeetingApiService.createMeeting(mMeeting);
-            finish();
+            if (startMillis < endMillis) {
+                Meeting mMeeting = new Meeting(
+                        DummyMeetingGenerator.getActualColor(),
+                        meetingRoomSpinner.getSelectedItem().toString(),
+                        datePickerCalendar.getTime(),
+                        startMeetingCalendar.getTime(),
+                        endMeetingCalendar.getTime(),
+                        meetingSubject.getText().toString(),
+                        mGuestsList);
+                mMeetingApiService.createMeeting(mMeeting);
+                finish();
+            } else{
+                Toast.makeText(getApplicationContext(), "Veuillez vérifier les heures de début et de fin", Toast.LENGTH_SHORT).show();
+            }
         }
     }
 
-    //if (meeting(param methode?).getDateStart().before(mMeeting(reu a créer).getDateStart()) && meeting.getDateEnd()
-    //        .before(mMeeting.getDateStart()))
-    //        toast pour signaler que heure fin ne doit pas être avant l'heure de début;
-
-    //        if (meeting.getDateStart().after(mMeeting.getDateEnd()) && meeting.getDateEnd()
-    //        .after(mMeeting.getDateEnd()))
-    //        toast pour signaler que heure début ne peut pas etre apres l'heure de fin;
 
 
-
-//A supprimer ?
-public void onTextChanged(){
-        meetingSubject.addTextChangedListener(new TextWatcher(){
-@Override
-public void beforeTextChanged(CharSequence s,int start,int count,int after){
-        }
-
-@Override
-public void onTextChanged(CharSequence s,int start,int before,int count){
-        }
-
-@Override
-public void afterTextChanged(Editable s){
-        }
-
-        });
-        }
-
-
-        }
+}
