@@ -172,19 +172,15 @@ public class AddMeeting extends AppCompatActivity {
     //Save the created meeting
     @OnClick(R.id.meeting_save)
     void addMeeting() {
+
+        //String regex = "^(.+)@(.+)$";
+        //        //Pattern pattern = Pattern.compile(regex);
+
+
+        //REGEX ?
         String[] guestsEmailList = guestEmail.getText().toString().split("\n");
+
         List<String> mGuestsList = new ArrayList<>(Arrays.asList(guestsEmailList));
-
-        //SimpleDateFormat sdf = new SimpleDateFormat("dd-mm-yyyy");
-        //Date startTime = sdf.parse(String.valueOf(startMeetingTimePicker));
-        //Date endTime = sdf.parse(String.valueOf(endMeetingTimePicker));
-//
-        //if (startTime.compareTo(endTime) > 0){
-        //    Toast.makeText(this,"L'heure de début n'est pas valide",Toast.LENGTH_SHORT);
-        //} else if (endTime.compareTo(startTime) < 0){
-        //    Toast.makeText(this,"L'heure de fin n'est pas valide",Toast.LENGTH_SHORT);
-        //}
-
 
         if (meetingSubject.getText().toString().length() == 0 ||
                 meetingDayText.getText().toString().equals(getString(R.string.meeting_day)) ||
@@ -209,12 +205,11 @@ public class AddMeeting extends AppCompatActivity {
                         mGuestsList);
                 mMeetingApiService.createMeeting(mMeeting);
                 finish();
-            } else{
+            } else {
                 Toast.makeText(getApplicationContext(), "Veuillez vérifier les heures de début et de fin", Toast.LENGTH_SHORT).show();
             }
         }
     }
-
 
 
 }

@@ -21,6 +21,11 @@
                 android:orderInCategory="200"
                 android:title="Filtrer par salle" />
 
+            <item
+                android:id="@+id/filterReset"
+                android:orderInCategory="300"
+                android:title="Reset" />
+
 
         </menu>
     </item>

@@ -78,6 +78,7 @@ public class MeetingListActivity extends AppCompatActivity {
     private void initListRoom(String room) {
         mRecyclerView.setAdapter(new MeetingRecyclerViewAdapter(mApiService.getMeetingByRoomFilter(room)));
     }
+
     private void intentAddMeetingActivity() {
         addMeeting.setOnClickListener(v -> {
             Intent intent = new Intent(v.getContext(), AddMeeting.class);
@@ -102,6 +103,9 @@ public class MeetingListActivity extends AppCompatActivity {
             case R.id.filterLocation:
                 filterRoom();
                 break;
+            case R.id.filterReset:
+                filterReset();
+                break;
         }
 
         return super.onOptionsItemSelected(item);
@@ -117,7 +121,7 @@ public class MeetingListActivity extends AppCompatActivity {
             int year = picker.getYear();
             int month = picker.getMonth();
             int day = picker.getDayOfMonth();
-            Date date = new GregorianCalendar(year,month,day).getTime();
+            Date date = new GregorianCalendar(year, month, day).getTime();
             initListDate(date);
         });
         builderDatePicker.setNegativeButton("Reset", (dialog, whichButton) -> initMeetingList());
@@ -145,6 +149,10 @@ public class MeetingListActivity extends AppCompatActivity {
         dialogRoom.show();
     }
 
+    public void filterReset(){
+        initMeetingList();
+    }
+
 
     @Override
     public void onStart() {
@@ -158,10 +166,10 @@ public class MeetingListActivity extends AppCompatActivity {
         EventBus.getDefault().unregister(this);
     }
 
-   @Subscribe
+    @Subscribe
     public void onDeleteMeetingEvent(DeleteMeetingEvent deleteMeetingEvent) {
         mApiService.deleteMeeting(deleteMeetingEvent.meeting);
-       initMeetingList();
+        initMeetingList();
     }
 
 }
