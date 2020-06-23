@@ -16,4 +16,9 @@
     <string name="meeting_day_date">14 mai 2020</string>
     <string name="meeting_day">Jour de la réunion</string>
     <string name="meeting_start_time">Entrez l\'heure de début de la réunion</string>
+    <string name="toast_invalid_form">Il faut remplir tout les champs</string>
+    <string name="toast_invalid_hours">Veuillez vérifier les heures de début et de fin</string>
+    <string name="filter_date_item">Filtrer par date</string>
+    <string name="filter_room_item">Filtrer par salle</string>
+    <string name="reset_item">Reset</string>
 </resources>

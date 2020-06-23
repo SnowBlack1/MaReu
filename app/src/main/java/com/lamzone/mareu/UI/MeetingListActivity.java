@@ -38,8 +38,6 @@ public class MeetingListActivity extends AppCompatActivity {
     private MeetingApiService mApiService;
 
     private List<Meeting> mMeetings = new ArrayList<>();
-    private List<Room> mRooms = new ArrayList<>();
-    private MeetingRecyclerViewAdapter mAdapter;
 
     @BindView(R.id.recycler_view_meeting_list)
     RecyclerView mRecyclerView;
@@ -59,8 +57,9 @@ public class MeetingListActivity extends AppCompatActivity {
         mApiService = DI.getMeetingApiService();
 
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        mAdapter = new MeetingRecyclerViewAdapter(mMeetings);
-        mRecyclerView.setAdapter(mAdapter);
+        //private List<Room> mRooms = new ArrayList<>();
+        MeetingRecyclerViewAdapter adapter = new MeetingRecyclerViewAdapter(mMeetings);
+        mRecyclerView.setAdapter(adapter);
 
         initMeetingList();
         intentAddMeetingActivity();

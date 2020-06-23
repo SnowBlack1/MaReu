@@ -173,11 +173,6 @@ public class AddMeeting extends AppCompatActivity {
     @OnClick(R.id.meeting_save)
     void addMeeting() {
 
-        //String regex = "^(.+)@(.+)$";
-        //        //Pattern pattern = Pattern.compile(regex);
-
-
-        //REGEX ?
         String[] guestsEmailList = guestEmail.getText().toString().split("\n");
 
         List<String> mGuestsList = new ArrayList<>(Arrays.asList(guestsEmailList));
@@ -188,7 +183,7 @@ public class AddMeeting extends AppCompatActivity {
                 endMeetingTimePicker.getText().toString().equals(getString(R.string.meeting_end_time)) ||
                 guestEmail.getText().toString().length() == 0) {
 
-            Toast.makeText(getApplicationContext(), "Il faut remplir tout les champs", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), R.string.toast_invalid_form, Toast.LENGTH_SHORT).show();
 
         } else {
             long startMillis = startMeetingCalendar.getTimeInMillis();
@@ -206,7 +201,7 @@ public class AddMeeting extends AppCompatActivity {
                 mMeetingApiService.createMeeting(mMeeting);
                 finish();
             } else {
-                Toast.makeText(getApplicationContext(), "Veuillez vérifier les heures de début et de fin", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), R.string.toast_invalid_hours, Toast.LENGTH_SHORT).show();
             }
         }
     }

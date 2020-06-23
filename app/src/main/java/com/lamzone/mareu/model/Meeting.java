@@ -22,14 +22,6 @@ public class Meeting implements Serializable {
     private String subject;
     private List<String> emailList;
 
-    public Date getMeetingStart() {
-        return meetingStart;
-    }
-
-    public Date getMeetingEnd() {
-        return meetingEnd;
-    }
-
     public int getColor() {
         return color;
     }

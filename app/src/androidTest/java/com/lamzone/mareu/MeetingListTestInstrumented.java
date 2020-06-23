@@ -12,6 +12,7 @@ import com.lamzone.mareu.UI.MeetingListActivity;
 import com.lamzone.mareu.model.Meeting;
 import com.lamzone.mareu.service.MeetingApiService;
 import com.lamzone.mareu.utils.DeleteViewAction;
+import com.lamzone.mareu.utils.ToastMatcher;
 
 import org.hamcrest.Matchers;
 import org.junit.Before;
@@ -66,13 +67,13 @@ public class MeetingListTestInstrumented {
      * We ensure that our recyclerview is displaying at least on item
      */
     @Test
-    public void meetingList_shouldNotBeEmpty() {
+    public void a_meetingList_shouldNotBeEmpty() {
         onView(withId(R.id.recycler_view_meeting_list))
                 .check(matches(hasMinimumChildCount(1)));
     }
 
     @Test
-    public void deleteAction_shouldRemoveItem() {
+    public void d_deleteAction_shouldRemoveItem() {
         //int ITEMS_COUNT = 5;
         onView(withId(R.id.recycler_view_meeting_list))
                 .check(matches(hasChildCount(MEETING_LIST_SIZE)));
@@ -85,15 +86,17 @@ public class MeetingListTestInstrumented {
     }
 
     @Test
-    public void filterMeetingByDate() {
+    public void b_filterMeetingByDate() {
         // Open the overflow menu
         onView(withId(R.id.menu_overflow_button_filter))
                 .perform(click());
+
         // Click on the item menu filter by date
         onView(withText("Filtrer par date"))
                 .perform(click());
-        // Pick a date, example 14th july 2020 ( 1 meetings hardcoded in DummyMeetingGenerator for this date )
-        onView(withClassName(Matchers.equalTo(DatePicker.class.getName()))).perform(PickerActions.setDate(2020, 7, 14));
+
+        // Pick a date, example 14th july 2020 ( 1 meeting hardcoded in DummyMeetingGenerator for this date )
+        onView(withClassName(Matchers.equalTo(DatePicker.class.getName()))).perform(PickerActions.setDate(2020, 5, 17));
         onView(withText("OK")).perform(click());
 
         // We check that the count of item is 1 ->Because 1 meeting hardcoded in DUMMY_MEETING generator
@@ -103,15 +106,14 @@ public class MeetingListTestInstrumented {
         onView(withId(R.id.menu_overflow_button_filter))
                 .perform(click());
 
-        // Click on the item menu filter by date
-        onView(withText("Filtrer par date"))
+        // Click on the item menu to reset
+        onView(withText("Reset"))
                 .perform(click());
-
-        onView(withText("Reset")).perform(click());
 
         // Open the overflow menu
         onView(withId(R.id.menu_overflow_button_filter))
                 .perform(click());
+
         // Click on the item menu filter by date
         onView(withText("Filtrer par date"))
                 .perform(click());
@@ -125,7 +127,7 @@ public class MeetingListTestInstrumented {
     }
 
     @Test
-    public void filterMeetingByRoom() {
+    public void c_filterMeetingByRoom() {
         // Before setting the filter => MEETING_LIST_SIZE
         onView(withId(R.id.recycler_view_meeting_list)).check(withItemCount(MEETING_LIST_SIZE));
 
@@ -146,20 +148,27 @@ public class MeetingListTestInstrumented {
         onView(withId(R.id.menu_overflow_button_filter))
                 .perform(click());
 
-        // Click on the item menu filter by date
-        onView(withText("Filtrer par salle"))
+        // Reset the filter => MEETING_LIST_SIZE
+        onView(withText("Reset"))
                 .perform(click());
 
-        // Reset the filter => MEETING_LIST_SIZE
-        onView(withText("Reset")).perform(click());
         onView(withId(R.id.recycler_view_meeting_list)).check(withItemCount(MEETING_LIST_SIZE));
     }
 
+    private int getNumberMeetingsWithRoomText(String room) {
+        int numberMeetingsWithRoomText = 0;
+        for (Meeting mRoom : apiService.getMeeting()) {
+            if (mRoom.getRoom().equals(room)) numberMeetingsWithRoomText += 1;
+        }
+        return numberMeetingsWithRoomText;
+
+    }
+
     @Test
-    public void addMeetingWithSuccess() {
+    public void e_addMeetingWithSuccess() {
 
         //Checking that items count is equal to MEETING_LIST_SIZE
-        onView(withId(R.id.recycler_view_meeting_list)).check(withItemCount(MEETING_LIST_SIZE));
+        onView(withId(R.id.recycler_view_meeting_list)).check(withItemCount(MEETING_LIST_SIZE - 1));
 
 
         // Click on the creation button for a new meeting
@@ -198,26 +207,99 @@ public class MeetingListTestInstrumented {
 
         // Enter of meeting guest email
         onView(withId(R.id.guest_email))
+                .perform(scrollTo(), click())
+                .perform(typeText("fire"));
+
+        // Click on the creation button for a new meeting
+        onView(withId(R.id.meeting_save)).perform(scrollTo(), click());
+        onView(withId(R.id.meeting_save)).perform(scrollTo(), click());
+
+
+        // Checking that count of items is equal to MEETING_LIST_SIZE +1
+        onView(withId(R.id.recycler_view_meeting_list)).check(withItemCount(MEETING_LIST_SIZE));
+    }
+
+    @Test
+    public void f_form_IsValid() {
+        //Checking that items count is equal to MEETING_LIST_SIZE
+        onView(withId(R.id.recycler_view_meeting_list)).check(withItemCount(MEETING_LIST_SIZE));
+
+        // Click on the creation button for a new meeting
+        onView(withId(R.id.add_meeting))
+                .perform(click());
+
+        //Click on imageView to change color
+        onView(withId(R.id.color_meeting)).perform(click());
+
+        // Subject
+        onView(withId(R.id.meeting_subject_txt))
+                .perform(click());
+        onView(withId(R.id.meeting_subject_txt))
+                .perform(typeText("test"));
+
+        // Click on the creation button for a new meeting
+        onView(withId(R.id.meeting_save)).perform(scrollTo(), click());
+
+        //Check if toast displayed if form not all filled
+        onView(withText(R.string.toast_invalid_form)).inRoot(new ToastMatcher())
+                .check(matches(isDisplayed()));
+    }
+
+    @Test
+    public void g_hours_AreValid() {
+
+        //Checking that items count is equal to MEETING_LIST_SIZE
+        onView(withId(R.id.recycler_view_meeting_list)).check(withItemCount(MEETING_LIST_SIZE));
+
+
+        // Click on the creation button for a new meeting
+        onView(withId(R.id.add_meeting))
+                .perform(click());
+
+        //Click on imageView to change color
+        onView(withId(R.id.color_meeting)).perform(click());
+
+        // Subject
+        onView(withId(R.id.meeting_subject_txt))
+                .perform(click());
+        onView(withId(R.id.meeting_subject_txt))
+                .perform(typeText("test"));
+
+        // Date choice
+        onView(withId(R.id.date_picker_txt))
+                .perform(click());
+        onView(withClassName(Matchers.equalTo(DatePicker.class.getName()))).perform(PickerActions.setDate(2020, 6, 6));
+        onView(withText("OK")).perform(click());
+
+        //Meeting start time choice
+        onView(withId(R.id.start_time_picker_txt)).perform(click());
+        onView(withClassName(Matchers.equalTo(TimePicker.class.getName()))).perform(PickerActions.setTime(18, 0));
+        onView(withText("OK")).perform(click());
+
+        //Meeting end time choice
+        onView(withId(R.id.end_time_picker_txt)).perform(click());
+        onView(withClassName(Matchers.equalTo(TimePicker.class.getName()))).perform(PickerActions.setTime(14, 0));
+        onView(withText("OK")).perform(click());
+
+        // Room choice
+        onView(withId(R.id.meeting_room_spinner))
+                .perform(click());
+        onData(anything()).atPosition(3).perform(click());
+
+        // Enter of meeting guest email
+        onView(withId(R.id.guest_email))
                 //.perform(click())
                 .perform(scrollTo(), click())
                 .perform(typeText("fire"));
 
         // Click on the creation button for a new meeting
         onView(withId(R.id.meeting_save)).perform(scrollTo(), click());
-        //onView(withId(R.id.meeting_save)).perform(scrollTo(), click());
+        onView(withId(R.id.meeting_save)).perform(scrollTo(), click());
+        //click 2 fois dessus car sinon test tourne dans le vide
 
-
-        // Checking that count of items is equal to MEETING_LIST_SIZE +1
-        onView(withId(R.id.recycler_view_meeting_list)).check(matches(isDisplayed()));
-        onView(withId(R.id.recycler_view_meeting_list)).check(withItemCount(MEETING_LIST_SIZE + 1));
-    }
-
-    private int getNumberMeetingsWithRoomText(String room) {
-        int numberMeetingsWithRoomText = 0;
-        for (Meeting mRoom : apiService.getMeeting()) {
-            if (mRoom.getRoom().equals(room)) numberMeetingsWithRoomText += 1;
-        }
-        return numberMeetingsWithRoomText;
+        //Check if toast displayed if hours are not coherent
+        onView(withText(R.string.toast_invalid_hours)).inRoot(new ToastMatcher())
+                .check(matches(isDisplayed()));
 
     }
 }

@@ -13,18 +13,18 @@
             <item
                 android:id="@+id/filterDate"
                 android:orderInCategory="100"
-                android:title="Filtrer par date"
+                android:title="@string/filter_date_item"
                 app:showAsAction="never" />
 
             <item
                 android:id="@+id/filterLocation"
                 android:orderInCategory="200"
-                android:title="Filtrer par salle" />
+                android:title="@string/filter_room_item" />
 
             <item
                 android:id="@+id/filterReset"
                 android:orderInCategory="300"
-                android:title="Reset" />
+                android:title="@string/reset_item" />
 
 
         </menu>
