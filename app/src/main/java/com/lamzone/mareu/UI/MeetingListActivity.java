@@ -148,7 +148,7 @@ public class MeetingListActivity extends AppCompatActivity {
         dialogRoom.show();
     }
 
-    public void filterReset(){
+    public void filterReset() {
         initMeetingList();
     }
 

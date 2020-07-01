@@ -48,7 +48,7 @@ dependencies {
     implementation 'org.greenrobot:eventbus:3.2.0'
 
     // UNIT TEST
-    testImplementation 'junit:junit:4.12'
+    testImplementation 'junit:junit:4.13'
     testImplementation 'org.hamcrest:java-hamcrest:2.0.0.0'
     
     // INSTRUMENTATION TEST
